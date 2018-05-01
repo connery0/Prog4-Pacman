@@ -3,13 +3,18 @@
 #include <chrono>
 #include <thread>
 #include "InputManager.h"
-#include "SceneManager.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
 #include <SDL.h>
-#include "TextObject.h"
-#include "GameObject.h"
-#include "Scene.h"
+
+#include "../Scenes/SceneManager.h"
+//todo: make general component include
+#include "../ObjComp/BaseComponent.h"
+#include "../ObjComp/TextComp.h"
+#include "../ObjComp/FpsComp.h"
+#include "../ObjComp/TextureComp.h"
+#include "../Scenes/Scene.h"
+#include "../ObjComp/TransformComponent.h"
 
 
 void dae::Minigin::Initialize()
@@ -40,21 +45,33 @@ void dae::Minigin::Initialize()
  */
 void dae::Minigin::LoadGame() const
 {
-	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
+	auto scene = new Scene("Demo");
+	SceneManager::GetInstance().AddScene(scene);
 
-	auto go = std::make_shared<GameObject>();
-	go->SetTexture("background.jpg");
-	scene.Add(go);
+	scene->Add((new BaseObject())->AddComponent(new TextureComp("background.jpg")));
 
-	go = std::make_shared<GameObject>();
-	go->SetTexture("logo.png");
-	go->SetPosition(216, 180);
-	scene.Add(go);
+	auto Bo = new BaseObject();
+	Bo->AddComponent(new TextureComp("logo.png"));
+	Bo->T()->SetPosition(216.f, 180);
+	scene->Add(Bo);
 
 	auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	auto to = std::make_shared<TextObject>("Programming 4 Assignment", font);
-	to->SetPosition(80, 20);
-	scene.Add(to);
+
+
+	auto title = new BaseObject();
+	title->T()->SetPosition(80, 20);
+	auto text1 = new TextComp("Programming 4:", font, { 255,255, 255 });
+	auto text2 = new TextComp("Return of the Bools", font, { 255, 150, 150 });
+	text2->SetOffset(80, 50);
+	title->AddComponent(text1)->AddComponent(text2);
+	scene->Add(title);
+
+
+
+	auto fpsFont = ResourceManager::GetInstance().LoadFont("Lingua.otf", 20);
+	auto fps = new FpsComp(fpsFont);
+	scene->Add((new BaseObject())->AddComponent(fps));
+
 }
 
 void dae::Minigin::Cleanup()
@@ -74,23 +91,22 @@ void dae::Minigin::Run()
 
 	LoadGame();
 
+	auto& renderer = dae::Renderer::GetInstance();
+	auto& scenemanager = SceneManager::GetInstance();
+	auto& input = dae::InputManager::GetInstance();
+
+	auto lasttime = std::chrono::high_resolution_clock::now();
+
+	bool docontinue = true;
+	while (docontinue)
 	{
-		auto t = std::chrono::high_resolution_clock::now();
-		auto& renderer = Renderer::GetInstance();
-		auto& sceneManager = SceneManager::GetInstance();
-		auto& input = InputManager::GetInstance();
+		auto currenttime = std::chrono::high_resolution_clock::now();
+		float deltatime = std::chrono::duration<float>(currenttime - lasttime).count();
+		lasttime = currenttime;
+		docontinue = input.ProcessInput();
 
-		bool doContinue = true;
-		while (doContinue)
-		{
-			doContinue = input.ProcessInput();
-
-			sceneManager.Update();
-			renderer.Render();
-
-			t += std::chrono::milliseconds(msPerFrame);
-			std::this_thread::sleep_until(t);
-		}
+		scenemanager.Update(deltatime);
+		renderer.Render();
 	}
 
 	Cleanup();

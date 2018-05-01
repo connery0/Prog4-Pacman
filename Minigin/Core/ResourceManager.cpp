@@ -5,7 +5,7 @@
 #include <SDL_ttf.h>
 
 #include "Renderer.h"
-#include "Texture2D.h"
+#include "../ObjComp/Texture2D.h"
 #include "Font.h"
 
 void dae::ResourceManager::Init(std::string&& dataPath)

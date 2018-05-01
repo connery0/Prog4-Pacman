@@ -192,28 +192,27 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Core\Font.h" />
-    <ClInclude Include="Core\GameObject.h" />
     <ClInclude Include="Core\InputManager.h" />
     <ClInclude Include="Core\Log.h" />
     <ClInclude Include="Core\Minigin.h" />
     <ClInclude Include="MiniginPCH.h" />
-    <ClInclude Include="Core\SceneObject.h" />
     <ClInclude Include="Core\Renderer.h" />
     <ClInclude Include="Core\ResourceManager.h" />
-    <ClInclude Include="Core\Scene.h" />
-    <ClInclude Include="Core\SceneManager.h" />
     <ClInclude Include="Core\Singleton.h" />
     <ClInclude Include="Core\targetver.h" />
-    <ClInclude Include="Core\TextObject.h" />
-    <ClInclude Include="Core\Texture2D.h" />
     <ClInclude Include="Core\Transform.h" />
     <ClInclude Include="ObjComp\BaseComponent.h" />
     <ClInclude Include="ObjComp\BaseObject.h" />
+    <ClInclude Include="ObjComp\FpsComp.h" />
+    <ClInclude Include="ObjComp\TextComp.h" />
+    <ClInclude Include="ObjComp\Texture2D.h" />
+    <ClInclude Include="ObjComp\TextureComp.h" />
     <ClInclude Include="ObjComp\TransformComponent.h" />
+    <ClInclude Include="Scenes\Scene.h" />
+    <ClInclude Include="Scenes\SceneManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Font.cpp" />
-    <ClCompile Include="Core\GameObject.cpp" />
     <ClCompile Include="Core\InputManager.cpp" />
     <ClCompile Include="Core\Log.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -227,14 +226,16 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     </ClCompile>
     <ClCompile Include="Core\Renderer.cpp" />
     <ClCompile Include="Core\ResourceManager.cpp" />
-    <ClCompile Include="Core\Scene.cpp" />
-    <ClCompile Include="Core\SceneManager.cpp" />
-    <ClCompile Include="Core\TextObject.cpp" />
-    <ClCompile Include="Core\Texture2D.cpp" />
     <ClCompile Include="Core\Transform.cpp" />
     <ClCompile Include="ObjComp\BaseComponent.cpp" />
     <ClCompile Include="ObjComp\BaseObject.cpp" />
+    <ClCompile Include="ObjComp\FpsComp.cpp" />
+    <ClCompile Include="ObjComp\TextComp.cpp" />
+    <ClCompile Include="ObjComp\Texture2D.cpp" />
+    <ClCompile Include="ObjComp\TextureComp.cpp" />
     <ClCompile Include="ObjComp\TransformComponent.cpp" />
+    <ClCompile Include="Scenes\Scene.cpp" />
+    <ClCompile Include="Scenes\SceneManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

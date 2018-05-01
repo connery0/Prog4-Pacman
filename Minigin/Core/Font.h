@@ -6,9 +6,10 @@ namespace dae
 	class Font
 	{
 	public:
-		TTF_Font* GetFont() const;
 		explicit Font(const std::string& fullPath, unsigned int size);
 		~Font();
+
+		TTF_Font* GetFont() const;
 
 		Font(const Font &) = delete;
 		Font(Font &&) = delete;

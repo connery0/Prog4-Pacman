@@ -2,7 +2,7 @@
 #include "BaseObject.h"
 
 #include "BaseComponent.h"
-#include "TransformComponent.h"
+#include "../ObjComp/TransformComponent.h"
 
 
 BaseObject::BaseObject():

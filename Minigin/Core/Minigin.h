@@ -1,4 +1,6 @@
 #pragma once
+#include "../Scenes/SceneManager.h"
+#include "InputManager.h"
 
 struct SDL_Window;
 
@@ -13,5 +15,9 @@ namespace dae
 		void LoadGame() const;
 		void Cleanup();
 		void Run();
+
+	private:
+		//mutable SceneManager m_scenemanager;
+		//mutable dae::InputManager m_input;
 	};
 }
