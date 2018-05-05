@@ -1,6 +1,5 @@
 #include "MiniginPCH.h"
 #include "TextComp.h"
-#include "TransformComponent.h"
 #include "../Core/Renderer.h"
 #include "SDL_ttf.h"
 #include "../Core/Font.h"
@@ -40,8 +39,8 @@ void TextComp::Render() const
 {
 	if (m_Texture != nullptr)
 	{
-		const auto pos = m_pParentObject->T()->GetPosition();
-		Renderer::GetInstance().RenderTexture(*m_Texture, pos.x + m_OffsetX, pos.y + m_OffsetY);
+		const auto pos = m_pParentObject->TGetPosition();
+		Renderer::GetInstance().RenderTexture(*m_Texture, pos.x + m_OffsetX, pos.y + m_OffsetY,m_pParentObject->TGetRotation());
 	}
 }
 

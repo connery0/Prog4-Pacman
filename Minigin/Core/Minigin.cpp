@@ -14,7 +14,6 @@
 #include "../ObjComp/FpsComp.h"
 #include "../ObjComp/TextureComp.h"
 #include "../Scenes/Scene.h"
-#include "../ObjComp/TransformComponent.h"
 #include "../ObjComp/BaseObject.h"
 
 
@@ -57,14 +56,15 @@ void dae::Minigin::LoadGame() const
 		);
 	auto Bo = std::make_shared<BaseObject>();
 	Bo->AddComponent(std::make_shared<TextureComp>("logo.png"));
-	Bo->T()->SetPosition(216.f, 180);
+	Bo->TSetPosition(216.f, 180);
+	Bo->TSetRotation(90);
 	scene->Add(Bo);
 
 	auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
 
 
 	auto title = std::make_shared<BaseObject>();
-	title->T()->SetPosition(80, 20);
+	title->TSetPosition(80, 20);
 	auto text1 = std::make_shared<TextComp>("Programming 4:", font, SDL_Color{ 255,255, 255 });
 	auto text2 = std::make_shared<TextComp>("Return of the Bools", font, SDL_Color{ 255, 150, 150 });
 	text2->SetOffset(80, 50);
@@ -77,11 +77,15 @@ void dae::Minigin::LoadGame() const
 
 	auto fpsObject = std::make_shared<BaseObject>();
 	fpsObject->AddComponent(std::make_shared<FpsComp>(fpsFont));
+	fpsObject->TSetRotation(45);
+	fpsObject->TSetPosition(100, 50);
 
 	auto testObj = std::make_shared<BaseObject>();
-	testObj->T()->SetPosition(20,20);
+	testObj->TSetPosition(40,40);
 	testObj->AddComponent(std::make_shared<FpsComp>(fpsFont));
-	
+
+	testObj->TSetRotation(45);
+
 	fpsObject->AddChild(testObj);
 
 	scene->Add(fpsObject);

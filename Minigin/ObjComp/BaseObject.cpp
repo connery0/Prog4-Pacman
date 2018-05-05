@@ -2,17 +2,13 @@
 #include "BaseObject.h"
 
 #include "BaseComponent.h"
-#include "../ObjComp/TransformComponent.h"
 
 
 BaseObject::BaseObject():
 	m_pParentObject(nullptr),
 	m_ChildObjects(std::vector<std::shared_ptr<BaseObject>>()),
-	m_pComponents(std::vector<std::shared_ptr<BaseComponent>>()),
-	m_pTransform(nullptr)
+	m_pComponents(std::vector<std::shared_ptr<BaseComponent>>())
 {
-	m_pTransform = std::make_shared<TransformComponent>();
-	m_pComponents.push_back(m_pTransform);
 }
 
 BaseObject::~BaseObject()
@@ -22,8 +18,6 @@ BaseObject::~BaseObject()
 		child->m_pParentObject=nullptr;
 	}
 	m_pParentObject=nullptr;
-
-	m_pTransform.reset();
 
 	m_ChildObjects.clear();
 	m_pComponents.clear();
@@ -86,10 +80,3 @@ void BaseObject::RemoveChild( std::shared_ptr<BaseObject> oldChild)
 	oldChild->m_pParentObject = nullptr;
 	m_ChildObjects.erase(find(m_ChildObjects.begin(), m_ChildObjects.end(), oldChild));
 }
-
-void BaseObject::Tmove(float x, float y)
-{
-	auto pos = m_pTransform->GetPosition();
-	m_pTransform->SetPosition(pos.x+x,pos.y+y);
-}
-

@@ -1,8 +1,13 @@
 #pragma once
 #include "Singleton.h"
 
-struct SDL_Window;
-struct SDL_Renderer;
+#include <SDL.h>
+
+//struct SDL_Window;
+//struct SDL_Renderer;
+
+//struct SDL_Point;
+//enum SDL_RendererFlip;
 
 namespace dae
 {
@@ -16,8 +21,12 @@ namespace dae
 		void Render();
 		void Destroy();
 
-		void RenderTexture(const Texture2D& texture, float x, float y) const;
-		void RenderTexture(const Texture2D& texture, float x, float y, float width, float height) const;
+		//void RenderTexture(const Texture2D& texture, float x, float y) const;
+
+
+		void RenderTexture(const Texture2D& texture, float x, float y, double angle = 0, SDL_Point* center=0, SDL_RendererFlip flip = SDL_RendererFlip::SDL_FLIP_NONE) const;
+
+		void RenderTexture(const Texture2D& texture, float x, float y, float width, float height, double angle = 0, SDL_Point* center = 0, SDL_RendererFlip flip = SDL_RendererFlip::SDL_FLIP_NONE) const;
 
 		SDL_Renderer* GetSDLRenderer() const { return mRenderer; }
 	};

@@ -206,7 +206,6 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="ObjComp\TextComp.h" />
     <ClInclude Include="ObjComp\Texture2D.h" />
     <ClInclude Include="ObjComp\TextureComp.h" />
-    <ClInclude Include="ObjComp\TransformComponent.h" />
     <ClInclude Include="Scenes\Scene.h" />
     <ClInclude Include="Scenes\SceneManager.h" />
   </ItemGroup>
@@ -231,7 +230,6 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClCompile Include="ObjComp\TextComp.cpp" />
     <ClCompile Include="ObjComp\Texture2D.cpp" />
     <ClCompile Include="ObjComp\TextureComp.cpp" />
-    <ClCompile Include="ObjComp\TransformComponent.cpp" />
     <ClCompile Include="Scenes\Scene.cpp" />
     <ClCompile Include="Scenes\SceneManager.cpp" />
   </ItemGroup>
