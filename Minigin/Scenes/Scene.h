@@ -21,6 +21,13 @@ public:
 	Scene& operator=(Scene&& other) = delete;
 
 
+	template <typename _Ty, class ..._Types>
+	std::shared_ptr<_Ty>  AddNew(_Types && ..._Args){ 
+		auto pointer = std::make_shared<_Ty>(_Args...);
+		mObjects.push_back(pointer);
+		return pointer;
+		};
+
 private: 
 		
 	std::string m_Name{};
@@ -28,3 +35,9 @@ private:
 
 	static unsigned int idCounter; 
 };
+
+//template<class _Ty, class ..._Types>
+//inline shared_ptr<_Ty> Scene::share(_Types && ..._Args)
+//{
+//	return std::make_shared<_Ty>(_Types);
+//}

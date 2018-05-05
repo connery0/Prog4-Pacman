@@ -21,14 +21,32 @@ public:
 	virtual void Render()const;
 
 
-
-	//Todo custom type version that makes the shared pointer
-
+	//Todo: Remove?
 	std::shared_ptr<BaseObject> AddComponent(std::shared_ptr<BaseComponent> newComponent);
 	void RemoveComponent(std::shared_ptr<BaseComponent> removeComp);
 
+		template <typename _Ty, class ..._Types>
+	std::shared_ptr<_Ty> CreateChildComponent(_Types && ..._Args) {
+		auto newComponent = std::make_shared<_Ty>(_Args...);
+		newComponent->m_pParentObject = this;
+		m_pComponents.push_back(newComponent);
+		
+		return newComponent;
+	}
+	
 	void AddChild( std::shared_ptr<BaseObject> newChild);
 	void RemoveChild( std::shared_ptr<BaseObject> oldChild);
+	
+		template <typename _Ty, class ..._Types>
+	std::shared_ptr<_Ty> CreateChildObj (_Types && ..._Args) {
+		std::shared_ptr<_Ty> newChild = std::make_shared<_Ty>(_Args...);
+		
+		m_ChildObjects.push_back(newChild);
+		newChild->m_pParentObject=this;
+
+		return newChild;
+	}
+
 
 	bool remove = false;
 
