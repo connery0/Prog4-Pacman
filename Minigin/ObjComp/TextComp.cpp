@@ -4,14 +4,16 @@
 #include "../Core/Renderer.h"
 #include "SDL_ttf.h"
 #include "../Core/Font.h"
+#include "../ObjComp/BaseObject.h"
 
+using namespace dae;
 
-dae::TextComp::TextComp(const std::string& text, std::shared_ptr<Font> font, SDL_Color textColor)
+TextComp::TextComp(const std::string& text, std::shared_ptr<Font> font, SDL_Color textColor)
 	: m_NeedsUpdate(true), m_Text(text), m_Font(font), m_Texture(nullptr), m_Color(textColor), m_OffsetX(0.f), m_OffsetY(0.f)
 {
 }
 
-void dae::TextComp::Update(float deltaTime)
+void TextComp::Update(float deltaTime)
 {
 	(void)deltaTime;
 
@@ -34,7 +36,7 @@ void dae::TextComp::Update(float deltaTime)
 	}
 }
 
-void dae::TextComp::Render() const
+void TextComp::Render() const
 {
 	if (m_Texture != nullptr)
 	{
@@ -43,19 +45,19 @@ void dae::TextComp::Render() const
 	}
 }
 
-void dae::TextComp::SetText(const std::string& text)
+void TextComp::SetText(const std::string& text)
 {
 	m_Text = text;
 	m_NeedsUpdate = true;
 }
 
-void dae::TextComp::SetOffset(const float x, const float y)
+void TextComp::SetOffset(const float x, const float y)
 {
 	m_OffsetX = x;
 	m_OffsetY = y;
 }
 
-void dae::TextComp::SetColor(SDL_Color color)
+void TextComp::SetColor(SDL_Color color)
 {
 	m_Color = color;
 	m_NeedsUpdate = true;

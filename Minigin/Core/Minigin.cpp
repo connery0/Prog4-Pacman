@@ -15,6 +15,7 @@
 #include "../ObjComp/TextureComp.h"
 #include "../Scenes/Scene.h"
 #include "../ObjComp/TransformComponent.h"
+#include "../ObjComp/BaseObject.h"
 
 
 void dae::Minigin::Initialize()
@@ -40,37 +41,50 @@ void dae::Minigin::Initialize()
 	Renderer::GetInstance().Init(window);
 }
 
+
+//36
+
 /**
  * Code constructing the scene world starts here
  */
 void dae::Minigin::LoadGame() const
 {
-	auto scene = new Scene("Demo");
+	auto scene = std::make_shared<Scene>("Demo");
 	SceneManager::GetInstance().AddScene(scene);
 
-	scene->Add((new BaseObject())->AddComponent(new TextureComp("background.jpg")));
-
-	auto Bo = new BaseObject();
-	Bo->AddComponent(new TextureComp("logo.png"));
+	scene->Add(
+		std::make_shared<BaseObject>()->AddComponent(std::make_shared<TextureComp>("background.jpg"))
+		);
+	auto Bo = std::make_shared<BaseObject>();
+	Bo->AddComponent(std::make_shared<TextureComp>("logo.png"));
 	Bo->T()->SetPosition(216.f, 180);
 	scene->Add(Bo);
 
 	auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
 
 
-	auto title = new BaseObject();
+	auto title = std::make_shared<BaseObject>();
 	title->T()->SetPosition(80, 20);
-	auto text1 = new TextComp("Programming 4:", font, { 255,255, 255 });
-	auto text2 = new TextComp("Return of the Bools", font, { 255, 150, 150 });
+	auto text1 = std::make_shared<TextComp>("Programming 4:", font, SDL_Color{ 255,255, 255 });
+	auto text2 = std::make_shared<TextComp>("Return of the Bools", font, SDL_Color{ 255, 150, 150 });
 	text2->SetOffset(80, 50);
 	title->AddComponent(text1)->AddComponent(text2);
 	scene->Add(title);
 
-
+	
 
 	auto fpsFont = ResourceManager::GetInstance().LoadFont("Lingua.otf", 20);
-	auto fps = new FpsComp(fpsFont);
-	scene->Add((new BaseObject())->AddComponent(fps));
+
+	auto fpsObject = std::make_shared<BaseObject>();
+	fpsObject->AddComponent(std::make_shared<FpsComp>(fpsFont));
+
+	auto testObj = std::make_shared<BaseObject>();
+	testObj->T()->SetPosition(20,20);
+	testObj->AddComponent(std::make_shared<FpsComp>(fpsFont));
+	
+	fpsObject->AddChild(testObj);
+
+	scene->Add(fpsObject);
 
 }
 

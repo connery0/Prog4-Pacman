@@ -7,22 +7,37 @@
 
 BaseObject::BaseObject():
 	m_pParentObject(nullptr),
-	m_ChildObjects(std::vector<BaseObject*>()),
-	m_pComponents(std::vector<BaseComponent*>()),
+	m_ChildObjects(std::vector<std::shared_ptr<BaseObject>>()),
+	m_pComponents(std::vector<std::shared_ptr<BaseComponent>>()),
 	m_pTransform(nullptr)
 {
-	m_pTransform = new TransformComponent();
+	m_pTransform = std::make_shared<TransformComponent>();
 	m_pComponents.push_back(m_pTransform);
+}
+
+BaseObject::~BaseObject()
+{
+	for (auto child : m_ChildObjects)
+	{
+		child->m_pParentObject=nullptr;
+	}
+	m_pParentObject=nullptr;
+
+	m_pTransform.reset();
+
+	m_ChildObjects.clear();
+	m_pComponents.clear();
+
 }
 
 void BaseObject::Update(float deltaTime)
 {
-	for (BaseComponent* comp : m_pComponents)
+	for (std::shared_ptr<BaseComponent> comp : m_pComponents)
 	{
 		comp->Update(deltaTime);
 	}
 
-	for (BaseObject* obj : m_ChildObjects)
+	for ( std::shared_ptr<BaseObject> obj : m_ChildObjects)
 	{
 		obj->Update(deltaTime);
 	}
@@ -30,11 +45,11 @@ void BaseObject::Update(float deltaTime)
 
 void BaseObject::Render() const
 {
-	for (BaseComponent* comp: m_pComponents)
+	for (std::shared_ptr<BaseComponent> comp: m_pComponents)
 	{
 		comp->Render();
 	}
-	for (BaseObject* obj : m_ChildObjects)
+	for ( std::shared_ptr<BaseObject> obj : m_ChildObjects)
 	{
 		obj->Render();
 	}
@@ -44,34 +59,37 @@ void BaseObject::Render() const
  * \param newComponent (Can not be a transformComponent)
  * \return object, for easy chaining
  */
-BaseObject* BaseObject::AddComponent(BaseComponent* newComponent){
+ std::shared_ptr<BaseObject> BaseObject::AddComponent(std::shared_ptr<BaseComponent> newComponent){
 	//Can only have one transformComponent
-	if(typeid(newComponent)!= typeid(TransformComponent))
+	if(typeid(newComponent)!= typeid(std::shared_ptr<TransformComponent>))
 	{
 		newComponent->m_pParentObject = this;
 		m_pComponents.push_back(newComponent);
-	}else if(m_pTransform==nullptr)
-	{
-		m_pTransform = static_cast<TransformComponent*>(newComponent);
-		m_pComponents.push_back(newComponent);}
-	return this;
+	}
+	return shared_from_this();
 }
 
-void BaseObject::RemoveComponent(BaseComponent* removeComp)
+void BaseObject::RemoveComponent(std::shared_ptr<BaseComponent> removeComp)
 {
 	m_pComponents.erase(find(m_pComponents.begin(), m_pComponents.end(), removeComp));
 	removeComp->m_pParentObject = nullptr;
 }
 
-void BaseObject::AddChild(BaseObject* newChild)
+void BaseObject::AddChild( std::shared_ptr<BaseObject> newChild)
 {
 	m_ChildObjects.push_back(newChild);
 	newChild->m_pParentObject = this;
 }
 
-void BaseObject::RemoveChild(BaseObject* oldChild)
+void BaseObject::RemoveChild( std::shared_ptr<BaseObject> oldChild)
 {
 	oldChild->m_pParentObject = nullptr;
 	m_ChildObjects.erase(find(m_ChildObjects.begin(), m_ChildObjects.end(), oldChild));
+}
+
+void BaseObject::Tmove(float x, float y)
+{
+	auto pos = m_pTransform->GetPosition();
+	m_pTransform->SetPosition(pos.x+x,pos.y+y);
 }
 

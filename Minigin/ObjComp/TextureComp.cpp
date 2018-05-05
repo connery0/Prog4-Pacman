@@ -3,6 +3,7 @@
 #include "TransformComponent.h"
 #include "../Core/Renderer.h"
 #include "../Core/ResourceManager.h"
+#include "../ObjComp/BaseObject.h"
 
 
 dae::TextureComp::TextureComp(const std::string& filename)

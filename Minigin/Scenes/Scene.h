@@ -1,5 +1,6 @@
 #pragma once
 #include "SceneManager.h"
+#include <memory>
 
 class BaseObject;
 class Scene
@@ -7,8 +8,8 @@ class Scene
 public:
 	Scene(const std::string& name);
 
-	void Add(BaseObject* object);
-	void Remove(BaseObject * object);
+	void Add( std::shared_ptr<BaseObject> object);
+	void Remove( std::shared_ptr<BaseObject> object);
 
 	void Update(float deltaTime);
 	void Render() const;
@@ -23,7 +24,7 @@ public:
 private: 
 		
 	std::string m_Name{};
-	std::vector < BaseObject*> mObjects{};
+	std::vector <std::shared_ptr<BaseObject>> mObjects;
 
 	static unsigned int idCounter; 
 };

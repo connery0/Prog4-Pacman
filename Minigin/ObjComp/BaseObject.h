@@ -1,38 +1,47 @@
 #pragma once
 #include <vector>
+#include <memory>
 
 class BaseComponent;
 class TransformComponent;
 
-class BaseObject
+class BaseObject:public std::enable_shared_from_this<BaseObject>
 {
 public:
 	BaseObject();
+	virtual ~BaseObject();
+
 	virtual void Update(float deltaTime);
 	virtual void Render()const;
 
-	BaseObject* AddComponent(BaseComponent* newComponent);
-	void RemoveComponent(BaseComponent* removeComp);
 
-	void AddChild(BaseObject* newChild);
-	void RemoveChild(BaseObject* oldChild);
 
-	TransformComponent* TransformComp() { return m_pTransform; }
+	//Todo custom type version that makes the shared pointer
+
+	std::shared_ptr<BaseObject> AddComponent(std::shared_ptr<BaseComponent> newComponent);
+	void RemoveComponent(std::shared_ptr<BaseComponent> removeComp);
+
+	void AddChild( std::shared_ptr<BaseObject> newChild);
+	void RemoveChild( std::shared_ptr<BaseObject> oldChild);
+
+	std::shared_ptr<TransformComponent> TransformComp() { return m_pTransform; }
 	///Shorthand to recieve the transformComponent
-	TransformComponent* T() { return TransformComp(); }
+	std::shared_ptr<TransformComponent> T() { return TransformComp(); }
+	//To speed up setposition(getposition)
+	void Tmove(float x=0,float y=0);
 
 
 	bool remove = false;
 
 protected:
 	BaseObject* m_pParentObject;
-	std::vector<BaseObject*> m_ChildObjects;
-	std::vector<BaseComponent*> m_pComponents;
-	TransformComponent* m_pTransform;
+
+	std::vector< std::shared_ptr<BaseObject>> m_ChildObjects;
+	std::vector<std::shared_ptr<BaseComponent>> m_pComponents;
+	std::shared_ptr<TransformComponent> m_pTransform;
 
 
 public:
-	virtual ~BaseObject() = default;
 	BaseObject(const BaseObject& other) = delete;
 	BaseObject(BaseObject&& other) = delete;
 	BaseObject& operator=(const BaseObject& other) = delete;
