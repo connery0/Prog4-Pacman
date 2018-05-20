@@ -8,6 +8,7 @@
 #include <SDL.h>
 
 #include "../Scenes/SceneManager.h"
+
 //todo: make general component include
 #include "../ObjComp/BaseComponent.h"
 #include "../ObjComp/TextComp.h"
@@ -15,6 +16,7 @@
 #include "../ObjComp/TextureComp.h"
 #include "../Scenes/Scene.h"
 #include "../ObjComp/BaseObject.h"
+#include "../ObjComp/Transform.h"
 
 
 void dae::Minigin::Initialize()
@@ -51,56 +53,43 @@ void dae::Minigin::LoadGame() const
 	auto scene = std::make_shared<Scene>("Demo");
 	SceneManager::GetInstance().AddScene(scene);
 
-	//scene->Add	(
-	//	std::make_shared<BaseObject>()->AddComponent(std::make_shared<TextureComp>("background.jpg"))
-	//	);
-
 	auto background = scene->AddNew<BaseObject>();
 	background->AddComponent(std::make_shared<TextureComp>("background.jpg"));
 
-
+	{
 	auto Bo = std::make_shared<BaseObject>();
 	Bo->AddComponent(std::make_shared<TextureComp>("logo.png"));
 	
-	Bo->TSetPosition(216.f, 180);
-	Bo->TSetRotation(90);
+	Bo->Tset(216.f, 180,90);
 	scene->Add(Bo);
+	}
 
 	auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
 
-
+	{
 	auto title = std::make_shared<BaseObject>();
-	title->TSetPosition(80, 20);
-	/*
-	auto text1 = std::make_shared<TextComp>("Programming 4:", font, SDL_Color{ 255,255, 255 });
-	auto text2 = std::make_shared<TextComp>("Return of the Bools", font, SDL_Color{ 255, 150, 150 });
-	text2->SetOffset(80, 50);
-	title->AddComponent(text1)->AddComponent(text2);
-	scene->Add(title);
-	*/
+	title->Tset(80, 20);
+
 	title->CreateChildComponent<TextComp>("Programming 4:", font, SDL_Color{ 255,255, 255 });
 	auto subTitle=title->CreateChildComponent<TextComp>("Return of the Bools", font, SDL_Color{ 255, 150, 150 });
 	subTitle->SetOffset(80,50);
-	scene->Add(title);
-
-	
+	scene->Add(title);}
+		
 
 	auto fpsFont = ResourceManager::GetInstance().LoadFont("Lingua.otf", 20);
 
 	auto fpsObject = std::make_shared<BaseObject>();
 	fpsObject->AddComponent(std::make_shared<FpsComp>(fpsFont));
-	fpsObject->TSetRotation(45);
-	fpsObject->TSetPosition(100, 50);
+	fpsObject->Tset(100, 100,100);
 
-	//auto testObj = std::make_shared<BaseObject>();
-	auto testObj = fpsObject->CreateChildObj<BaseObject>();
+	//auto fpsChild = std::make_shared<BaseObject>();
+	auto fpsChild = fpsObject->CreateChildObj<BaseObject>();
 
-	testObj->TSetPosition(40,40);
-	testObj->AddComponent(std::make_shared<FpsComp>(fpsFont));
+	fpsChild->Tset(0,40,0);
+	fpsChild->AddComponent(std::make_shared<FpsComp>(fpsFont));
 
-	testObj->TSetRotation(45);
 
-	fpsObject->AddChild(testObj);
+	fpsObject->AddChild(fpsChild);
 
 	scene->Add(fpsObject);
 

@@ -2,7 +2,8 @@
 #include "TextureComp.h"
 #include "../Core/Renderer.h"
 #include "../Core/ResourceManager.h"
-#include "../ObjComp/BaseObject.h"
+#include "BaseObject.h"
+#include "Transform.h"
 
 
 dae::TextureComp::TextureComp(const std::string& filename)
@@ -12,6 +13,6 @@ dae::TextureComp::TextureComp(const std::string& filename)
 
 void dae::TextureComp::Render() const
 {
-	auto pos = m_pParentObject->TGetPosition();
-	Renderer::GetInstance().RenderTexture(*m_Texture, pos.x, pos.y,m_pParentObject->TGetRotation());
+	auto pos = m_pParentObject->T()->GetPosition();
+	Renderer::GetInstance().RenderTexture(*m_Texture, pos.x, pos.y,m_pParentObject->T()->getRotationDeg());
 }
