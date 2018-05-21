@@ -17,6 +17,7 @@
 #include "../Scenes/Scene.h"
 #include "../ObjComp/BaseObject.h"
 #include "../ObjComp/Transform.h"
+#include "../ObjComp/Player1MovementComp.h"
 
 
 void dae::Minigin::Initialize()
@@ -87,6 +88,7 @@ void dae::Minigin::LoadGame() const
 
 	fpsChild->Tset(0,40,0);
 	fpsChild->AddComponent(std::make_shared<FpsComp>(fpsFont));
+	fpsChild->CreateChildComponent<player1_movement_comp>();
 
 
 	fpsObject->AddChild(fpsChild);

@@ -10,7 +10,11 @@ void player1_movement_comp::Init()
 	{
 		if (m_pParentObject)
 		{
-			//input = m_pParentObject->GetComponent<InputComp>();
+			input = m_pParentObject->GetComponent<InputComp>();
+			if(!input)
+			{
+				input = m_pParentObject->CreateChildComponent<InputComp>();
+			}
 		}
 		else
 		{
@@ -28,7 +32,6 @@ void player1_movement_comp::Init()
 
 void player1_movement_comp::Update(float deltaTime)
 {
-	(void) deltaTime;
 	if(!m_Initialized)
 		Init();
 
@@ -42,12 +45,12 @@ void player1_movement_comp::Update(float deltaTime)
 		if (input->isDown(MoveRight))
 			xSpeed += 1;
 		if (input->isDown(MoveUp))
-			xSpeed -= 1;
+			ySpeed -= 1;
 		if (input->isDown(MoveDown))
-			xSpeed += 1;
+			ySpeed += 1;
 
 
-		m_pParentObject->T()->AddTransform(speedMul*xSpeed,speedMul*ySpeed,0);
+		m_pParentObject->T()->AddTransform(speedMul*xSpeed*deltaTime,speedMul*ySpeed*deltaTime,0);
 	}
 }
 

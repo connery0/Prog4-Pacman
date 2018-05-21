@@ -19,6 +19,26 @@ public:
 	void AddComponent(std::shared_ptr<BaseComponent> newComponent);
 	void RemoveComponent(std::shared_ptr<BaseComponent> removeComp);
 
+	template<class T> std::shared_ptr<T> GetComponent(bool searchChildren = false)
+	{
+		const type_info& ti = typeid(T);
+		for (std::shared_ptr<BaseComponent>  component : m_pComponents)
+		{
+			if (component && typeid(*component) == ti)
+				return std::dynamic_pointer_cast<T>(component);
+		}
+
+		if (searchChildren)
+		{
+			for (auto child : m_ChildObjects)
+			{
+				if (child->GetComponent<T>(searchChildren) != nullptr)
+					return child->GetComponent<T>(searchChildren);
+			}
+		}
+
+		return nullptr;
+	}
 
 	template <typename _Ty, class ..._Types>
 	std::shared_ptr<_Ty> CreateChildComponent(_Types && ..._Args) {

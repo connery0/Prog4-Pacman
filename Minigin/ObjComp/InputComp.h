@@ -25,7 +25,7 @@ public:
 	//KeyBoard
 	void addInput(int key, int keyCode)
 	{
-		if(m_InputList.count(key)>0)
+		if(m_InputList.empty() || m_InputList.count(key)==0)
 		{
 			m_InputList[key] = inputStruct{ keyCode };
 			dae::InputManager::GetInstance().AddInput(m_InputList[key].keyboardKeyCode,&m_InputList[key].isPressed);

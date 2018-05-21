@@ -9,8 +9,8 @@ class player1_movement_comp :public BaseComponent
 	void Init();
 	void Update(float deltaTime) override;
 
-	float speedMul = 10;
-
+	float speedMul = 100;
+		
 protected:
 	enum Actions
 	{
