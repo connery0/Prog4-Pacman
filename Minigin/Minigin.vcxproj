@@ -203,6 +203,8 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="ObjComp\BaseComponent.h" />
     <ClInclude Include="ObjComp\BaseObject.h" />
     <ClInclude Include="ObjComp\FpsComp.h" />
+    <ClInclude Include="ObjComp\InputComp.h" />
+    <ClInclude Include="ObjComp\Player1MovementComp.h" />
     <ClInclude Include="ObjComp\TextComp.h" />
     <ClInclude Include="ObjComp\Texture2D.h" />
     <ClInclude Include="ObjComp\TextureComp.h" />
@@ -225,9 +227,9 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     </ClCompile>
     <ClCompile Include="Core\Renderer.cpp" />
     <ClCompile Include="Core\ResourceManager.cpp" />
-    <ClCompile Include="ObjComp\BaseComponent.cpp" />
     <ClCompile Include="ObjComp\BaseObject.cpp" />
     <ClCompile Include="ObjComp\FpsComp.cpp" />
+    <ClCompile Include="ObjComp\player1_movement_comp.cpp" />
     <ClCompile Include="ObjComp\TextComp.cpp" />
     <ClCompile Include="ObjComp\Texture2D.cpp" />
     <ClCompile Include="ObjComp\TextureComp.cpp" />

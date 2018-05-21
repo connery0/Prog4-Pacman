@@ -5,8 +5,8 @@ class BaseObject;
 class BaseComponent
 {
 public:
-	BaseComponent();
-	virtual ~BaseComponent();
+	BaseComponent(){};
+	virtual ~BaseComponent(){};
 
 	virtual void Update(float deltaTime) { (void)deltaTime; };
 	virtual void Render()const {};

@@ -75,6 +75,12 @@
     <ClInclude Include="ObjComp\Transform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ObjComp\InputComp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjComp\Player1MovementComp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -101,9 +107,6 @@
     <ClCompile Include="Core\ResourceManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ObjComp\BaseComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ObjComp\BaseObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -123,6 +126,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ObjComp\TextureComp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjComp\player1_movement_comp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

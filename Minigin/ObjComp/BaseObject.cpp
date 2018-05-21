@@ -21,7 +21,7 @@ BaseObject::~BaseObject()
 	}
 	m_pParentObject=nullptr;
 	
-	safeDelete(m_Transform);
+	SafeDelete(m_Transform);
 
 	m_ChildObjects.clear();
 	m_pComponents.clear();

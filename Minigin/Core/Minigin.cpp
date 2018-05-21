@@ -97,6 +97,7 @@ void dae::Minigin::LoadGame() const
 
 void dae::Minigin::Cleanup()
 {
+	InputManager::GetInstance().Destroy();
 	Renderer::GetInstance().Destroy();
 	SDL_DestroyWindow(window);
 	window = nullptr;
@@ -119,13 +120,30 @@ void dae::Minigin::Run()
 	auto lasttime = std::chrono::high_resolution_clock::now();
 
 	bool docontinue = true;
+	bool* thisIsATestBool =nullptr;
+	input.AddInput('A',&thisIsATestBool);
+
+	bool* thisIsATestBool2 = nullptr;
+	input.AddInput('S', &thisIsATestBool2);
+
 	while (docontinue)
 	{
 		auto currenttime = std::chrono::high_resolution_clock::now();
 		float deltatime = std::chrono::duration<float>(currenttime - lasttime).count();
 		lasttime = currenttime;
+		input.Update();
 		docontinue = input.ProcessInput();
-
+		
+		if(thisIsATestBool &&*thisIsATestBool)
+		{
+			input.RemoveInput(&thisIsATestBool);
+			std::cout<<"TEST";
+		}
+		if (thisIsATestBool2 &&*thisIsATestBool2)
+		{
+			input.RemoveInput(&thisIsATestBool2);
+			std::cout << "TEST2";
+		}
 		scenemanager.Update(deltatime);
 		renderer.Render();
 	}

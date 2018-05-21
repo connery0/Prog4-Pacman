@@ -8,8 +8,8 @@
 
 using namespace dae;
 
-TextComp::TextComp(const std::string& text, std::shared_ptr<Font> font, SDL_Color textColor)
-	: m_NeedsUpdate(true), m_Text(text), m_Font(font), m_Texture(nullptr), m_Color(textColor), m_OffsetX(0.f), m_OffsetY(0.f)
+TextComp::TextComp(const std::string& text, std::shared_ptr<Font> font, SDL_Color textColor): 
+	m_NeedsUpdate(true), m_Text(text), m_Font(font), m_Texture(nullptr), m_Color(textColor), m_OffsetX(0.f), m_OffsetY(0.f)
 {
 }
 

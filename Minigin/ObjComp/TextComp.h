@@ -8,7 +8,7 @@
 class TextComp:public BaseComponent
 {
 public:
-	explicit TextComp(const std::string& text, std::shared_ptr<dae::Font> font, SDL_Color textColor = SDL_Color{255,255,255});
+	explicit TextComp( const std::string& text, std::shared_ptr<dae::Font> font, SDL_Color textColor = SDL_Color{255,255,255});
 
 	void Update(float deltaTime) override;
 	void Render() const override;
