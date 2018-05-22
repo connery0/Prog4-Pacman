@@ -16,8 +16,10 @@
 #include "../ObjComp/TextureComp.h"
 #include "../Scenes/Scene.h"
 #include "../ObjComp/BaseObject.h"
+#include "../ObjComp/LevelObject.h"
 #include "../ObjComp/Transform.h"
 #include "../ObjComp/Player1MovementComp.h"
+#include "../ObjComp/LevelObject.h"
 
 
 void dae::Minigin::Initialize()
@@ -31,8 +33,8 @@ void dae::Minigin::Initialize()
 		"Programming 4 assignment",
 		SDL_WINDOWPOS_UNDEFINED,
 		SDL_WINDOWPOS_UNDEFINED,
-		640,
-		480,
+		1050,
+		850,
 		SDL_WINDOW_OPENGL
 	);
 	if (window == nullptr) 
@@ -95,6 +97,8 @@ void dae::Minigin::LoadGame() const
 
 	scene->Add(fpsObject);
 
+	auto level = std::make_shared<LevelObject>("../Data/Map2.csv");
+	scene->Add(level);
 }
 
 void dae::Minigin::Cleanup()

@@ -29,7 +29,7 @@ void Scene::Update(float deltaTime)
 	bool removeObjects = false;
 	for (auto gameObject : mObjects)
 	{
-		if (!gameObject->remove) {
+		if (!gameObject->remove && gameObject->isActive && !gameObject->isPaused) {
 			gameObject->Update(deltaTime);
 		}
 		else
@@ -51,7 +51,8 @@ void Scene::Render() const
 {
 	for (const auto gameObject : mObjects)
 	{
-		if(!gameObject->remove) gameObject->Render();
+		if(!gameObject->remove && gameObject->isActive)
+			gameObject->Render();
 	}
 }
 

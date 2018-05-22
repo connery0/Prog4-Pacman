@@ -1,9 +1,6 @@
 #include "MiniginPCH.h"
 #include "BaseObject.h"
 
-#include "BaseComponent.h"
-#include "Transform.h"
-
 
 BaseObject::BaseObject():
 	m_pParentObject(nullptr),
@@ -32,12 +29,14 @@ void BaseObject::Update(float deltaTime)
 {
 	for (std::shared_ptr<BaseComponent> comp : m_pComponents)
 	{
-		comp->Update(deltaTime);
+		if(comp->isActive && !comp->isPaused)
+			comp->Update(deltaTime);
 	}
 
 	for ( std::shared_ptr<BaseObject> obj : m_ChildObjects)
 	{
-		obj->Update(deltaTime);
+		if(obj->isActive && !obj->isPaused)
+			obj->Update(deltaTime);
 	}
 }
 
@@ -45,11 +44,13 @@ void BaseObject::Render() const
 {
 	for (std::shared_ptr<BaseComponent> comp: m_pComponents)
 	{
-		comp->Render();
+		if(comp->isActive && !comp->isPaused)
+			comp->Render();
 	}
 	for ( std::shared_ptr<BaseObject> obj : m_ChildObjects)
 	{
-		obj->Render();
+		if (obj->isActive && !obj->isPaused)
+			obj->Render();
 	}
 }
 
@@ -58,7 +59,7 @@ void BaseObject::Render() const
  * \return object, for easy chaining
  */
  void BaseObject::AddComponent(std::shared_ptr<BaseComponent> newComponent){
-		newComponent->m_pParentObject = this;
+		newComponent->addParent(this);
 		m_pComponents.push_back(newComponent);
 }
 

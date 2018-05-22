@@ -67,7 +67,8 @@ public:
 	void Tadd(float x,float y,float rot=0);
 	void Tset(float x, float y, float rot=0);
 
-
+	bool isActive=true;
+	bool isPaused = false;//only stop update, but keep rendering
 friend Transform;
 protected:
 	BaseObject* m_pParentObject;

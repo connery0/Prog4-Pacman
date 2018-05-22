@@ -94,6 +94,10 @@ public:
 		SetTransform(x,y,mRotation);	
 	}
 
+	glm::vec2 GetSize(){return mSize;}
+	void SetSize(const float x, const float y) { mSize.x=x;mSize.y=y;}
+
+
 private:
 	BaseObject* mParent = nullptr;
 	glm::vec2 mPosition{0,0};
