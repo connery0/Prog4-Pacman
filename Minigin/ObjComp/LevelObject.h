@@ -37,7 +37,6 @@ protected:
 	const int m_Height=17;
 
 	const int m_TileSize=50;
-	glm::vec2 m_SpawnPoint{10,8};
 
 	const std::string FileNameWall ="Wall2.png";
 	std::shared_ptr<dae::Texture2D> t_Wall;
@@ -49,7 +48,7 @@ protected:
 	std::shared_ptr<dae::Texture2D> t_Coin;
 	const std::string FileNamePowerup = "Powerup.png";
 	std::shared_ptr<dae::Texture2D> t_Powerup;
-	const std::string FileNameFruit = "Prison.png"; //todo: Fruit for extra points (in level or as seperate actor)
+	const std::string FileNameFruit = "Prison.png"; //todo: Fruit for extra points (in level or as seperate actor?)
 	std::shared_ptr<dae::Texture2D> t_Fruit;
 
 	std::vector<TileType>m_Tiles;

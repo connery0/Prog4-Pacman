@@ -195,6 +195,8 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="Core\InputManager.h" />
     <ClInclude Include="Core\Log.h" />
     <ClInclude Include="Core\Minigin.h" />
+    <ClInclude Include="GlobalGameMaster\GlobalMaster.h" />
+    <ClInclude Include="ObjComp\MazeRunner.h" />
     <ClInclude Include="MiniginPCH.h" />
     <ClInclude Include="Core\Renderer.h" />
     <ClInclude Include="Core\ResourceManager.h" />
@@ -205,20 +207,26 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="ObjComp\FpsComp.h" />
     <ClInclude Include="ObjComp\InputComp.h" />
     <ClInclude Include="ObjComp\LevelObject.h" />
+    <ClInclude Include="ObjComp\MazeRunnerGoalScripts\GoalCalculationScript.h" />
     <ClInclude Include="ObjComp\Player1MovementComp.h" />
     <ClInclude Include="ObjComp\TextComp.h" />
     <ClInclude Include="ObjComp\Texture2D.h" />
+    <ClInclude Include="ObjComp\TextureColliderComp.h" />
     <ClInclude Include="ObjComp\TextureComp.h" />
     <ClInclude Include="ObjComp\Transform.h" />
+    <ClInclude Include="Scenes\SceneSinglePlayer.h" />
     <ClInclude Include="Scenes\Scene.h" />
     <ClInclude Include="Scenes\SceneManager.h" />
+    <ClInclude Include="Scenes\SceneTitleScreen.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Font.cpp" />
     <ClCompile Include="Core\InputManager.cpp" />
     <ClCompile Include="Core\Log.cpp" />
+    <ClCompile Include="GlobalGameMaster\GlobalMaster.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Core\Minigin.cpp" />
+    <ClCompile Include="ObjComp\MazeRunner.cpp" />
     <ClCompile Include="MiniginPCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -234,9 +242,12 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClCompile Include="ObjComp\player1_movement_comp.cpp" />
     <ClCompile Include="ObjComp\TextComp.cpp" />
     <ClCompile Include="ObjComp\Texture2D.cpp" />
+    <ClCompile Include="ObjComp\TextureColliderComp.cpp" />
     <ClCompile Include="ObjComp\TextureComp.cpp" />
+    <ClCompile Include="Scenes\SceneSinglePlayer.cpp" />
     <ClCompile Include="Scenes\Scene.cpp" />
     <ClCompile Include="Scenes\SceneManager.cpp" />
+    <ClCompile Include="Scenes\SceneTitleScreen.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

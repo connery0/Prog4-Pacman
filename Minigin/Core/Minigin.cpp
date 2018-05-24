@@ -20,6 +20,8 @@
 #include "../ObjComp/Transform.h"
 #include "../ObjComp/Player1MovementComp.h"
 #include "../ObjComp/LevelObject.h"
+#include "../Scenes/SceneSinglePlayer.h"
+#include "../Scenes/SceneTitleScreen.h"
 
 
 void dae::Minigin::Initialize()
@@ -53,52 +55,8 @@ void dae::Minigin::Initialize()
  */
 void dae::Minigin::LoadGame() const
 {
-	auto scene = std::make_shared<Scene>("Demo");
-	SceneManager::GetInstance().AddScene(scene);
-
-	auto background = scene->AddNew<BaseObject>();
-	background->AddComponent(std::make_shared<TextureComp>("background.jpg"));
-
-	{
-	auto Bo = std::make_shared<BaseObject>();
-	Bo->AddComponent(std::make_shared<TextureComp>("logo.png"));
-	
-	Bo->Tset(216.f, 180,90);
-	scene->Add(Bo);
-	}
-
-	auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-
-	{
-	auto title = std::make_shared<BaseObject>();
-	title->Tset(80, 20);
-
-	title->CreateChildComponent<TextComp>("Programming 4:", font, SDL_Color{ 255,255, 255 });
-	auto subTitle=title->CreateChildComponent<TextComp>("Return of the Bools", font, SDL_Color{ 255, 150, 150 });
-	subTitle->SetOffset(80,50);
-	scene->Add(title);}
-		
-
-	auto fpsFont = ResourceManager::GetInstance().LoadFont("Lingua.otf", 20);
-
-	auto fpsObject = std::make_shared<BaseObject>();
-	fpsObject->AddComponent(std::make_shared<FpsComp>(fpsFont));
-	fpsObject->Tset(100, 100,100);
-
-	//auto fpsChild = std::make_shared<BaseObject>();
-	auto fpsChild = fpsObject->CreateChildObj<BaseObject>();
-
-	fpsChild->Tset(0,40,0);
-	fpsChild->AddComponent(std::make_shared<FpsComp>(fpsFont));
-	fpsChild->CreateChildComponent<player1_movement_comp>();
-
-
-	fpsObject->AddChild(fpsChild);
-
-	scene->Add(fpsObject);
-
-	auto level = std::make_shared<LevelObject>("../Data/Map2.csv");
-	scene->Add(level);
+	SceneManager::GetInstance().AddScene(std::make_shared<SceneTitleScreen>());
+	SceneManager::GetInstance().AddScene(std::make_shared<SceneSinglePlayer>());
 }
 
 void dae::Minigin::Cleanup()

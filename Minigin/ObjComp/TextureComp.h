@@ -10,8 +10,7 @@ namespace  dae{
 
 		void Render() const override;
 
-		virtual void addParent(BaseObject* parentObj) override;
-	private:
+	protected:
 		std::shared_ptr<Texture2D> m_Texture;
 	};
 

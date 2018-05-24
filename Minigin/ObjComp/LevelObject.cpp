@@ -5,6 +5,7 @@
 #include <string>
 #include "../Core/ResourceManager.h"
 #include "../Core/Renderer.h"
+#include "../GlobalGameMaster/GlobalMaster.h"
 
 LevelObject::LevelObject(std::string FileName):BaseObject()
 {
@@ -29,33 +30,27 @@ void LevelObject::Render() const
 			size_t currentIndex = static_cast<size_t>(Position.x+ Position.y*m_Width);
 			switch (m_Tiles[currentIndex]) { 
 				case Wall:
-					renderer.RenderTexture(*t_Wall, Position.x*m_TileSize, Position.y*m_TileSize, 0);
+					renderer.RenderTexture(*t_Wall, (0.5f+Position.x)*m_TileSize, (0.5f+Position.y)*m_TileSize, 0);
 					break;
 				case Floor:
-					renderer.RenderTexture(*t_Floor, Position.x*m_TileSize, Position.y*m_TileSize, 0);
+					renderer.RenderTexture(*t_Floor, (0.5f+Position.x)*m_TileSize, (0.5f+Position.y)*m_TileSize, 0);
 					break;
 				case Prison:
-					renderer.RenderTexture(*t_Prison, Position.x*m_TileSize, Position.y*m_TileSize, 0);
+					renderer.RenderTexture(*t_Prison, (0.5f+Position.x)*m_TileSize, (0.5f+Position.y)*m_TileSize, 0);
 					break;
 				case Coin:
-					renderer.RenderTexture(*t_Floor, Position.x*m_TileSize, Position.y*m_TileSize, 0);
-					renderer.RenderTexture(*t_Coin, Position.x*m_TileSize, Position.y*m_TileSize, 0);
+					renderer.RenderTexture(*t_Floor, (0.5f+Position.x)*m_TileSize, (0.5f+Position.y)*m_TileSize, 0);
+					renderer.RenderTexture(*t_Coin, (0.5f+Position.x)*m_TileSize, (0.5f+Position.y)*m_TileSize, 0);
 					break;
 				case Powerup:
-					renderer.RenderTexture(*t_Floor, Position.x*m_TileSize, Position.y*m_TileSize, 0);
-					renderer.RenderTexture(*t_Powerup, Position.x*m_TileSize, Position.y*m_TileSize, 0);
+					renderer.RenderTexture(*t_Floor, (0.5f+Position.x)*m_TileSize, (0.5f+Position.y)*m_TileSize, 0);
+					renderer.RenderTexture(*t_Powerup, (0.5f+Position.x)*m_TileSize, (0.5f+Position.y)*m_TileSize, 0);
 					break;
 				case Fruit:
-					renderer.RenderTexture(*t_Floor, Position.x*m_TileSize, Position.y*m_TileSize, 0);
-					renderer.RenderTexture(*t_Fruit, Position.x*m_TileSize, Position.y*m_TileSize, 0);
+					renderer.RenderTexture(*t_Floor, (0.5f+Position.x)*m_TileSize, (0.5f+Position.y)*m_TileSize, 0);
+					renderer.RenderTexture(*t_Fruit, (0.5f+Position.x)*m_TileSize, (0.5f+Position.y)*m_TileSize, 0);
 					break;
 			}
-
-			renderer.RenderTexture(*dae::ResourceManager::GetInstance().LoadTexture("Pacman.png") , m_SpawnPoint.x*m_TileSize, m_SpawnPoint.y*m_TileSize, 0);
-			
-
-
-
 			Position.x++;
 		}
 		Position.y++;
@@ -64,6 +59,10 @@ void LevelObject::Render() const
 
 void LevelObject::LoadLevel()
 {
+	auto& gm = GlobalMaster::GetInstance();
+	gm.m_Level_SpawnPoints.clear();
+	gm.m_Level_PrisonTiles.clear();
+
 	m_Tiles.clear();
 	m_Tiles.resize(static_cast<size_t>(m_Width*m_Height));
 	std::string delimiter = ",";
@@ -89,9 +88,19 @@ void LevelObject::LoadLevel()
 			nextTile=static_cast<TileType>(token[0]);//No check here, don't mess up the level file
 			if(nextTile==SpawnPoint)
 			{
+				glm::vec2 spawnPoint{ 
+					static_cast<float>((0.5 + horizontal)*m_TileSize),
+					static_cast<float>((0.5 + vertical)*m_TileSize)
+				};
+				gm.m_Level_SpawnPoints.push_back(spawnPoint);
 				nextTile=Floor;
-				m_SpawnPoint.x= static_cast<float>(horizontal);
-				m_SpawnPoint.y = static_cast<float>(vertical);
+			}else if(nextTile==Prison)
+			{
+				glm::vec2 tileCenter{
+					static_cast<float>((0.5+horizontal)*m_TileSize),
+					static_cast<float>((0.5 + vertical)*m_TileSize)
+				};
+				gm.m_Level_PrisonTiles.push_back(tileCenter);
 			}
 				
 
@@ -103,8 +112,6 @@ void LevelObject::LoadLevel()
 		++vertical;
 	}
 }
-
-
 
 
 void LevelObject::LoadLevel(std::string FileName)

@@ -8,7 +8,7 @@ public:
 	BaseComponent(){};
 	virtual ~BaseComponent(){};
 
-	virtual void Update(float deltaTime) { (void)deltaTime; };
+	virtual void Update(float deltaTime) {(void)deltaTime;};
 	virtual void Render()const {};
 	virtual void addParent(BaseObject* parentObj){m_pParentObject=parentObj;};
 	bool isActive = true;

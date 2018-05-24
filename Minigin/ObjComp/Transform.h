@@ -93,6 +93,10 @@ public:
 	{
 		SetTransform(x,y,mRotation);	
 	}
+	void SetPosition(const glm::vec2 pos)
+	{
+		SetTransform(pos.x, pos.y, mRotation);
+	}
 
 	glm::vec2 GetSize(){return mSize;}
 	void SetSize(const float x, const float y) { mSize.x=x;mSize.y=y;}
