@@ -33,16 +33,17 @@ public:
 	{
 		return DEG(GetRotation());
 	}
-	glm::vec2 GetPosition()
+	std::pair<float, float> GetPosition()
 	{
-		glm::vec2 returnPos{};
-		returnPos.x = cos(mParRotation)*mPosition.x - sin(mParRotation)*mPosition.y;
-		returnPos.y = sin(mParRotation)*mPosition.x + cos(mParRotation)*mPosition.y;
+		std::pair<float, float> returnPos{};
+		returnPos.first = cos(mParRotation)*mPosition.first - sin(mParRotation)*mPosition.second;
+		returnPos.second = sin(mParRotation)*mPosition.first + cos(mParRotation)*mPosition.second;
 
-		returnPos += mParPosition;
+		returnPos.first += mParPosition.first;
+		returnPos.second+= mParPosition.second;
 		return returnPos;
 	}
-	void updateFromParent(const float rotation, const glm::vec2 pos)
+	void updateFromParent(const float rotation, const std::pair<float, float> pos)
 	{
 		hasParentTransform=true;
 		mParRotation=rotation;
@@ -60,8 +61,8 @@ public:
 	{
 		mRotation = RAD(rot);
 		if(worldRotation){mRotation-=mParRotation;}
-		mPosition.x = x;
-		mPosition.y = y;
+		mPosition.first = x;
+		mPosition.second = y;
 
 		if (mParent->m_ChildObjects.size()>0)
 		{
@@ -74,8 +75,8 @@ public:
 	void AddTransform(const float x, const float y, const float rot)
 	{
 		mRotation += RAD(rot);
-		mPosition.x += x;
-		mPosition.y += y;
+		mPosition.first += x;
+		mPosition.second += y;
 
 		if (mParent->m_ChildObjects.size()>0)
 		{
@@ -87,31 +88,31 @@ public:
 	}
 	void SetRotation(float rot)
 	{
-		SetTransform(mPosition.x,mPosition.y, rot);
+		SetTransform(mPosition.first,mPosition.second, rot);
 	}
 	void SetPosition(const float x,const float y)
 	{
 		SetTransform(x,y,mRotation);	
 	}
-	void SetPosition(const glm::vec2 pos)
+	void SetPosition(const std::pair<float, float> pos)
 	{
-		SetTransform(pos.x, pos.y, mRotation);
+		SetTransform(pos.first, pos.second, mRotation);
 	}
 
-	glm::vec2 GetSize(){return mSize;}
-	void SetSize(const float x, const float y) { mSize.x=x;mSize.y=y;}
+	std::pair<float, float> GetSize(){return mSize;}
+	void SetSize(const float x, const float y) { mSize.first=x;mSize.second =y;}
 
 
 private:
 	BaseObject* mParent = nullptr;
-	glm::vec2 mPosition{0,0};
+	std::pair<float, float> mPosition{0.f,0.f };
 	float mRotation{0};
 
-	glm::vec2 mSize{0,0};
-	glm::vec2 mScale{1,1};
+	std::pair<float, float> mSize{0.f,0.f};
+	std::pair<float, float> mScale{1.f,1.f};
 
 	//parent transform values
-	glm::vec2 mParPosition{0,0};
+	std::pair<float, float> mParPosition{0.f,0.f};
 	float mParRotation{0};
 public:
 	bool hasParentTransform{false};

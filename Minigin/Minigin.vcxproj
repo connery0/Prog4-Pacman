@@ -208,6 +208,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="ObjComp\InputComp.h" />
     <ClInclude Include="ObjComp\LevelObject.h" />
     <ClInclude Include="ObjComp\MazeRunnerGoalScripts\GoalCalculationScript.h" />
+    <ClInclude Include="ObjComp\MazeRunnerGoalScripts\PlayerControlledGoalScript.h" />
     <ClInclude Include="ObjComp\Player1MovementComp.h" />
     <ClInclude Include="ObjComp\TextComp.h" />
     <ClInclude Include="ObjComp\Texture2D.h" />

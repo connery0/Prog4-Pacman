@@ -8,6 +8,7 @@
 #include "vector"
 #include "Texture2D.h"
 
+//Changes need to be added to mazerunner map!
 enum TileType{
 	Wall='w',
 	Floor='0',
@@ -29,10 +30,12 @@ public:
 	
 	TileType getTile(float x,float y);
 	TileType pickupTile(float x, float y);
+	
+	float getBorder(float p1, float p2);
 
 
 protected:
-	//glm::vec2 m_Size {21,17};
+	//std::pair<float, float> m_Size {21,17};
 	const int m_Width = 21;
 	const int m_Height=17;
 

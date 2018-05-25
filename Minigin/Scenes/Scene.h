@@ -1,6 +1,7 @@
 #pragma once
 #include "SceneManager.h"
 #include <memory>
+#include "../ObjComp/MazeRunner.h"
 
 class BaseObject;
 class Scene
@@ -41,6 +42,7 @@ protected:
 	bool isInitialized=false;	
 	std::string m_Name{};
 	std::vector <std::shared_ptr<BaseObject>> m_Objects;
+	std::vector <std::shared_ptr<MazeRunner>> m_Runners;
 
 	static unsigned int idCounter; 
 };
@@ -49,7 +51,7 @@ template <class T>
 std::shared_ptr<T> Scene::getChild()
 {
 	const type_info& ti = typeid(T);
-	for (std::shared_ptr<BaseComponent> childObject : m_Objects)
+	for (std::shared_ptr<BaseObject> childObject : m_Objects)
 	{
 		if (childObject && typeid(*childObject) == ti)
 			return std::dynamic_pointer_cast<T>(childObject);
@@ -63,7 +65,7 @@ std::vector<std::shared_ptr<T>> Scene::getChildren()
 	const type_info& ti = typeid(T);
 	std::vector<std::shared_ptr<T>> returnVector;
 
-	for (std::shared_ptr<BaseComponent> childObject : m_Objects)
+	for (std::shared_ptr<BaseObject> childObject : m_Objects)
 	{
 		if (childObject && typeid(*childObject) == ti)
 			returnVector.push_back(std::dynamic_pointer_cast<T>(childObject));

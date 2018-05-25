@@ -102,6 +102,9 @@
     <ClInclude Include="ObjComp\MazeRunnerGoalScripts\GoalCalculationScript.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ObjComp\MazeRunnerGoalScripts\PlayerControlledGoalScript.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

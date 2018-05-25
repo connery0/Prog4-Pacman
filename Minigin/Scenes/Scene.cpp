@@ -34,12 +34,9 @@ void Scene::Update(float deltaTime)
 	}
 
 	
-	/*Allow mazerunners to find goal before update cycle*/
-	for (auto gameObject : m_Objects)
+	for (auto runner:m_Runners)
 	{
-		std::shared_ptr<MazeRunner> runner =gameObject->GetComponent<MazeRunner>(true);
-		if(runner!=nullptr)
-			runner->CalculateGoal();
+		runner->CalculateGoal(deltaTime);
 	}
 
 	/*Update all objects*/

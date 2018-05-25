@@ -12,8 +12,8 @@ public:
 
 
 	//Map info - gets added when scene switches to a level
-	std::vector<glm::vec2> m_Level_SpawnPoints;
-	std::vector<glm::vec2> m_Level_PrisonTiles; //Locations for ghosts to return to/spawn on
+	std::vector<std::pair<float, float>> m_Level_SpawnPoints;
+	std::vector<std::pair<float, float>> m_Level_PrisonTiles; //Locations for ghosts to return to/spawn on
 
 };
 

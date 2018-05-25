@@ -21,39 +21,39 @@ LevelObject::LevelObject(std::string FileName):BaseObject()
 void LevelObject::Render() const
 {
 	auto& renderer = dae::Renderer::GetInstance();
-	glm::vec2 Position {0,0};
-	while (Position.y<m_Height)
+	std::pair<float, float> Position {0.f,0.f};
+	while (Position.second<m_Height)
 	{
-		Position.x=0;
-		while (Position.x<m_Width)
+		Position.first=0;
+		while (Position.first<m_Width)
 		{
-			size_t currentIndex = static_cast<size_t>(Position.x+ Position.y*m_Width);
+			size_t currentIndex = static_cast<size_t>(Position.first+ Position.second*m_Width);
 			switch (m_Tiles[currentIndex]) { 
 				case Wall:
-					renderer.RenderTexture(*t_Wall, (0.5f+Position.x)*m_TileSize, (0.5f+Position.y)*m_TileSize, 0);
+					renderer.RenderTexture(*t_Wall, (0.5f+Position.first)*m_TileSize, (0.5f+Position.second)*m_TileSize, 0);
 					break;
 				case Floor:
-					renderer.RenderTexture(*t_Floor, (0.5f+Position.x)*m_TileSize, (0.5f+Position.y)*m_TileSize, 0);
+					renderer.RenderTexture(*t_Floor, (0.5f+Position.first)*m_TileSize, (0.5f+Position.second)*m_TileSize, 0);
 					break;
 				case Prison:
-					renderer.RenderTexture(*t_Prison, (0.5f+Position.x)*m_TileSize, (0.5f+Position.y)*m_TileSize, 0);
+					renderer.RenderTexture(*t_Prison, (0.5f+Position.first)*m_TileSize, (0.5f+Position.second)*m_TileSize, 0);
 					break;
 				case Coin:
-					renderer.RenderTexture(*t_Floor, (0.5f+Position.x)*m_TileSize, (0.5f+Position.y)*m_TileSize, 0);
-					renderer.RenderTexture(*t_Coin, (0.5f+Position.x)*m_TileSize, (0.5f+Position.y)*m_TileSize, 0);
+					renderer.RenderTexture(*t_Floor, (0.5f+Position.first)*m_TileSize, (0.5f+Position.second)*m_TileSize, 0);
+					renderer.RenderTexture(*t_Coin, (0.5f+Position.first)*m_TileSize, (0.5f+Position.second)*m_TileSize, 0);
 					break;
 				case Powerup:
-					renderer.RenderTexture(*t_Floor, (0.5f+Position.x)*m_TileSize, (0.5f+Position.y)*m_TileSize, 0);
-					renderer.RenderTexture(*t_Powerup, (0.5f+Position.x)*m_TileSize, (0.5f+Position.y)*m_TileSize, 0);
+					renderer.RenderTexture(*t_Floor, (0.5f+Position.first)*m_TileSize, (0.5f+Position.second)*m_TileSize, 0);
+					renderer.RenderTexture(*t_Powerup, (0.5f+Position.first)*m_TileSize, (0.5f+Position.second)*m_TileSize, 0);
 					break;
 				case Fruit:
-					renderer.RenderTexture(*t_Floor, (0.5f+Position.x)*m_TileSize, (0.5f+Position.y)*m_TileSize, 0);
-					renderer.RenderTexture(*t_Fruit, (0.5f+Position.x)*m_TileSize, (0.5f+Position.y)*m_TileSize, 0);
+					renderer.RenderTexture(*t_Floor, (0.5f+Position.first)*m_TileSize, (0.5f+Position.second)*m_TileSize, 0);
+					renderer.RenderTexture(*t_Fruit, (0.5f+Position.first)*m_TileSize, (0.5f+Position.second)*m_TileSize, 0);
 					break;
 			}
-			Position.x++;
+			Position.first++;
 		}
-		Position.y++;
+		Position.second++;
 	}
 }
 
@@ -88,7 +88,7 @@ void LevelObject::LoadLevel()
 			nextTile=static_cast<TileType>(token[0]);//No check here, don't mess up the level file
 			if(nextTile==SpawnPoint)
 			{
-				glm::vec2 spawnPoint{ 
+				std::pair<float, float> spawnPoint{ 
 					static_cast<float>((0.5 + horizontal)*m_TileSize),
 					static_cast<float>((0.5 + vertical)*m_TileSize)
 				};
@@ -96,7 +96,7 @@ void LevelObject::LoadLevel()
 				nextTile=Floor;
 			}else if(nextTile==Prison)
 			{
-				glm::vec2 tileCenter{
+				std::pair<float, float> tileCenter{
 					static_cast<float>((0.5+horizontal)*m_TileSize),
 					static_cast<float>((0.5 + vertical)*m_TileSize)
 				};
@@ -130,4 +130,18 @@ TileType LevelObject::pickupTile(float x, float y)
 	const TileType returnValue = getTile(x,y);
 	m_Tiles[static_cast<int>(x / m_TileSize) + static_cast<int>(y / m_TileSize)*m_Width]=Floor;
 	return returnValue;
+}
+
+float LevelObject::getBorder(float p1, float p2)
+{
+//No data is lost, but a long chain of static casts would be more unreadable
+#pragma warning(push)
+#pragma warning (disable:4244)
+	p1 = static_cast<int>(p1 / m_TileSize)*m_TileSize;
+	p2 = static_cast<int>(p2 / m_TileSize)*m_TileSize;
+#pragma warning(pop)
+
+	if (p1>p2)return p1;
+	return p2;
+
 }
