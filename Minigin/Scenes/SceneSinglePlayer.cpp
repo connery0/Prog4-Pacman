@@ -12,6 +12,8 @@
 #include "../ObjComp/PacmanAnimation.h"
 #include "../ObjComp/ScoreComp.h"
 #include "../Core/Renderer.h"
+#include "../ObjComp/PacmanLogicComp.h"
+#include "../ObjComp/GhostLogicComp.h"
 
 
 SceneSinglePlayer::SceneSinglePlayer(): Scene("SinglePlayerMap")
@@ -37,10 +39,11 @@ void SceneSinglePlayer::Initialize()
 	std::vector<TileType>blockers;
 	blockers.push_back(TileType::Wall);
 	auto newRunner = std::make_shared<MazeRunner>(level, std::make_shared<PlayerControlledGoalScript>(), 50.f);
-	newRunner->m_DoesTileBlock[Prison] = true;
+	newRunner->m_DoesTileBlock[Wall] = false;
 	pacman->AddComponent(newRunner);
 	m_Runners.push_back(newRunner);
 	pacman->CreateChildComponent<PacmanAnimation>();
+	pacman->CreateChildComponent<PacmanLogicComp>(level,1);
 
 	auto newGhost = AddNew<BaseObject>();
 	newGhost->T()->SetPosition(GlobalMaster::GetInstance().m_Level_PrisonTiles[0]);
@@ -49,6 +52,7 @@ void SceneSinglePlayer::Initialize()
 	auto ghostRunner = std::make_shared<MazeRunner>(level, std::make_shared<goalScript>(), 50.f, true);
 	newGhost->AddComponent(ghostRunner); 
 	m_Runners.push_back(ghostRunner);
+	newGhost->CreateChildComponent<GhostLogicComp>(level);
 
 	auto fpsFont = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 20);
 
@@ -59,6 +63,6 @@ void SceneSinglePlayer::Initialize()
 
 	auto Player1ScorePanel=AddNew<BaseObject>();
 	Player1ScorePanel->CreateChildComponent<dae::TextureColliderComp>("ScorePanel.png",false);
-	Player1ScorePanel->CreateChildComponent<dae::ScoreComp>("  Score : ", 0, fpsFont)->SetOffset(8.f,6.f);
+	Player1ScorePanel->CreateChildComponent<dae::ScoreComp>("  Score : ", 1, fpsFont)->SetOffset(8.f,6.f);
 	Player1ScorePanel->T()->SetPosition(5, dae::Renderer::WINDOW_HEIGHT- Player1ScorePanel->T()->GetSize().second - 5);
 }

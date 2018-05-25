@@ -12,9 +12,14 @@ public:
 	void Add( std::shared_ptr<BaseObject> object);
 	void Remove( std::shared_ptr<BaseObject> object);
 	template <class T>
-	std::shared_ptr<T> getChild();;
+	std::shared_ptr<T> getChild();
 	template <class T>
 	std::vector<std::shared_ptr<T>> getChildren();;
+
+
+	template <class T>
+	std::vector<std::shared_ptr<BaseObject>> getObjectsWithComponent(bool searchChildren=false);;
+
 
 
 	virtual void Initialize()=0;
@@ -72,3 +77,17 @@ std::vector<std::shared_ptr<T>> Scene::getChildren()
 	}
 	return returnVector;
 }
+
+template <class T>
+std::vector<std::shared_ptr<BaseObject>> Scene::getObjectsWithComponent(bool searchChildren)
+{
+	std::vector<std::shared_ptr<BaseObject>> returnVector;
+	for(std::shared_ptr<BaseObject>object:m_Objects)
+	{
+		auto result = object->GetComponent<T>(searchChildren);
+		if(result)
+			returnVector.push_back(object);
+	}
+	return returnVector;
+}
+

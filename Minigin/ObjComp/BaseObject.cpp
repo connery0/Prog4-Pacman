@@ -91,3 +91,17 @@ void BaseObject::Tset(float x, float y, float rot)
 {
 	m_Transform->SetTransform(x, y, rot);
 }
+
+bool BaseObject::CollidesWith(std::shared_ptr<BaseObject> other)
+{
+	if(other->T()==m_Transform) return false; //Don't collide with yourself
+
+	auto otherT = other->T();
+	//Check if the center point overlaps with the other object
+	return 
+		(m_Transform->GetPosition().first>otherT->GetPosition().first-otherT->GetSize().first/2)
+	&&	(m_Transform->GetPosition().first<otherT->GetPosition().first + otherT->GetSize().first / 2)
+	&&	(m_Transform->GetPosition().second>otherT->GetPosition().second- otherT->GetSize().second / 2)
+	&&	(m_Transform->GetPosition().second<otherT->GetPosition().second + otherT->GetSize().second / 2);
+
+}

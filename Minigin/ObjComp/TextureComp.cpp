@@ -12,6 +12,11 @@ dae::TextureComp::TextureComp(const std::string& filename, bool centerTexture):m
 	m_Texture=dae::ResourceManager::GetInstance().LoadTexture(filename);
 }
 
+void dae::TextureComp::ChangeTexture(const std::string& filename)
+{
+	m_Texture = dae::ResourceManager::GetInstance().LoadTexture(filename);
+}
+
 void dae::TextureComp::Render() const
 {
 	auto pos = m_pParentObject->T()->GetPosition();

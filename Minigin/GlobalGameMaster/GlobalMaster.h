@@ -12,10 +12,11 @@ public:
 	std::vector<std::pair<float, float>> m_Level_PrisonTiles; //Locations for ghosts to return to/spawn on
 
 	//Player scores, <playerId,Score>
-	std::map<int,int>m_PlayerScore{
-		std::make_pair(1,100),
-		std::make_pair(0,1000)
-	};
+	std::map<int,int>m_PlayerScore;
+	//Player lives
+	std::map<int, int>m_PlayerDeaths;
+	int m_PlayerMaxDeaths=3;
+
 	void resetPlayerScore()
 	{
 		for (auto const& element : m_PlayerScore)
@@ -23,6 +24,9 @@ public:
 			m_PlayerScore[element.first]=0;
 		}
 	};
+
+
+
 
 };
 

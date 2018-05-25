@@ -4,19 +4,17 @@
 
 class LevelObject;
 
-class PacmanLogicComp:public BaseComponent
+class GhostLogicComp:public BaseComponent
 {
 public:
-	PacmanLogicComp(std::shared_ptr<LevelObject>maze,int playerId);
+	GhostLogicComp(std::shared_ptr<LevelObject>maze);
 	void Update(float deltaTime) override;
-	void CheckFloor();
-	void CheckCollision();
+	//void CheckFloor();
 
-	void Die();
+	bool isDead=false;
 private:
 	std::shared_ptr<LevelObject> m_Maze;
 	int m_PlayerId;
 	const float maxPowerupTime=10.f;
 	float m_PowerupTime=0.f;
-	bool isDead=false;
 };

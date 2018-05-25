@@ -7,6 +7,7 @@ namespace  dae{
 	{
 	public:
 		TextureComp(const std::string& filename,bool centerTexture=true);
+		void ChangeTexture(const std::string& filename);
 
 		void Render() const override;
 

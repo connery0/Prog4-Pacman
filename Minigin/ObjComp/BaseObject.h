@@ -34,6 +34,7 @@ public:
 	Transform* T() const {return m_Transform;}
 	void Tadd(float x,float y,float rot=0);
 	void Tset(float x, float y, float rot=0);
+	bool CollidesWith(std::shared_ptr<BaseObject>other);
 
 	//Management variables
 	bool remove = false;
