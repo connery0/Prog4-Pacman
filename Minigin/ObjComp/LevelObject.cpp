@@ -119,10 +119,19 @@ void LevelObject::LoadLevel(std::string FileName)
 	m_LevelString=FileName;
 	LoadLevel();
 }
+TileType LevelObject::getTile(std::pair<float, float>pos)
+{
+	return getTile(pos.first,pos.second);
+}
 
 TileType LevelObject::getTile(float x, float y)
 {
 	return m_Tiles[static_cast<int>(x/m_TileSize)+ static_cast<int>(y / m_TileSize)*m_Width];
+}
+
+TileType LevelObject::pickupTile(std::pair<float, float> pos)
+{
+	return pickupTile(pos.first, pos.second);
 }
 
 TileType LevelObject::pickupTile(float x, float y)
@@ -134,7 +143,7 @@ TileType LevelObject::pickupTile(float x, float y)
 
 float LevelObject::getBorder(float p1, float p2)
 {
-//No data is lost, but a long chain of static casts would be more unreadable
+//No data is lost, but a long chain of static casts would be get unreadable (float to int)
 #pragma warning(push)
 #pragma warning (disable:4244)
 	p1 = static_cast<int>(p1 / m_TileSize)*m_TileSize;

@@ -31,20 +31,24 @@ void dae::Minigin::Initialize()
 		throw std::runtime_error(std::string("SDL_Init Error: ") + SDL_GetError());
 	}
 
+	int width = 1050;
+	int height=850;
+
 	window = SDL_CreateWindow(
 		"Programming 4 assignment",
 		SDL_WINDOWPOS_UNDEFINED,
 		SDL_WINDOWPOS_UNDEFINED,
-		1050,
-		850,
+		width,
+		height,
 		SDL_WINDOW_OPENGL
 	);
 	if (window == nullptr) 
 	{
 		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
 	}
-
 	Renderer::GetInstance().Init(window);
+	Renderer::WINDOW_WIDTH = width;
+	Renderer::WINDOW_HEIGHT= height;
 }
 
 

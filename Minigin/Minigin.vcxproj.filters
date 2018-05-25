@@ -105,6 +105,15 @@
     <ClInclude Include="ObjComp\MazeRunnerGoalScripts\PlayerControlledGoalScript.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ObjComp\PacmanAnimation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjComp\ScoreComp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjComp\PacmanLogicComp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -171,6 +180,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ObjComp\MazeRunner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjComp\ScoreComp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjComp\PacmanLogicComp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

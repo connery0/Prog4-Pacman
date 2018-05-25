@@ -11,7 +11,7 @@ class MazeRunner :
 	public BaseComponent
 {
 public:
-	MazeRunner(std::shared_ptr<LevelObject>maze, goalScript* goalCalc,  float speed,bool async=false);
+	MazeRunner(std::shared_ptr<LevelObject>maze, std::shared_ptr<goalScript> goalCalc,  float speed,bool async=false);
 	~MazeRunner()
 	{
 		if(goalCalculation.joinable())
@@ -40,7 +40,7 @@ protected:
 	bool isAsync=false;
 	std::future<std::pair<float, float>> m_Future;
 	std::thread goalCalculation;
-	goalScript* calculationObject;
+	std::shared_ptr<goalScript> calculationObject;
 	const float goalUpdateDelay=0.5f;
 	float timeSinceLastGoal = 0.f;
 };

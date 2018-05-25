@@ -7,7 +7,7 @@
 #include <SDL.h>
 
 
-dae::TextureComp::TextureComp(const std::string& filename)
+dae::TextureComp::TextureComp(const std::string& filename, bool centerTexture):m_centerTexture(centerTexture)
 {
 	m_Texture=dae::ResourceManager::GetInstance().LoadTexture(filename);
 }
@@ -15,5 +15,8 @@ dae::TextureComp::TextureComp(const std::string& filename)
 void dae::TextureComp::Render() const
 {
 	auto pos = m_pParentObject->T()->GetPosition();
-	Renderer::GetInstance().RenderTexture(*m_Texture, pos.first, pos.second,m_pParentObject->T()->getRotationDeg());
+	if(m_centerTexture)
+		Renderer::GetInstance().RenderTexture(*m_Texture, pos.first, pos.second,m_pParentObject->T()->getRotationDeg());
+	else
+		Renderer::GetInstance().RenderTextureNoOffset(*m_Texture, pos.first, pos.second, m_pParentObject->T()->getRotationDeg());
 }

@@ -6,7 +6,7 @@
 
 
 
-MazeRunner::MazeRunner(std::shared_ptr<LevelObject> maze, goalScript* goalCalc, float speed, bool isAsync) :isAsync(isAsync), m_Maze(maze), calculationObject(goalCalc), m_Speed(speed)
+MazeRunner::MazeRunner(std::shared_ptr<LevelObject> maze, std::shared_ptr<goalScript> goalCalc, float speed, bool isAsync) :isAsync(isAsync), m_Maze(maze), calculationObject(goalCalc), m_Speed(speed)
 {
 }
 

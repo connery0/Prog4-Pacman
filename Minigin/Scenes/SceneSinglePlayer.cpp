@@ -9,6 +9,9 @@
 #include "../ObjComp/MazeRunnerGoalScripts/GoalCalculationScript.h"
 #include "../ObjComp/MazeRunner.h"
 #include "../ObjComp/MazeRunnerGoalScripts/PlayerControlledGoalScript.h"
+#include "../ObjComp/PacmanAnimation.h"
+#include "../ObjComp/ScoreComp.h"
+#include "../Core/Renderer.h"
 
 
 SceneSinglePlayer::SceneSinglePlayer(): Scene("SinglePlayerMap")
@@ -33,24 +36,29 @@ void SceneSinglePlayer::Initialize()
 	
 	std::vector<TileType>blockers;
 	blockers.push_back(TileType::Wall);
-	auto newRunner = std::make_shared<MazeRunner>(level, new PlayerControlledGoalScript(), 20.f);
+	auto newRunner = std::make_shared<MazeRunner>(level, std::make_shared<PlayerControlledGoalScript>(), 50.f);
+	newRunner->m_DoesTileBlock[Prison] = true;
 	pacman->AddComponent(newRunner);
 	m_Runners.push_back(newRunner);
+	pacman->CreateChildComponent<PacmanAnimation>();
 
 	auto newGhost = AddNew<BaseObject>();
 	newGhost->T()->SetPosition(GlobalMaster::GetInstance().m_Level_PrisonTiles[0]);
 	newGhost->CreateChildComponent<dae::TextureColliderComp>("Ghost.png");
 
-	goalScript tempGoalCalc{};
-	auto ghostRunner = std::make_shared<MazeRunner>(level, new goalScript(), 20.f, true);
+	auto ghostRunner = std::make_shared<MazeRunner>(level, std::make_shared<goalScript>(), 50.f, true);
 	newGhost->AddComponent(ghostRunner); 
 	m_Runners.push_back(ghostRunner);
 
 	auto fpsFont = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 20);
 
-	auto fpsObject = std::make_shared<BaseObject>();
-	fpsObject->AddComponent(std::make_shared<dae::FpsComp>(fpsFont));
-	fpsObject->Tset(50, 50, 0);
+	//auto fpsObject = std::make_shared<BaseObject>();
+	//fpsObject->AddComponent(std::make_shared<dae::FpsComp>(fpsFont));
+	//fpsObject->Tset(50, 50, 0);
+	//Add(fpsObject);
 
-	Add(fpsObject);
+	auto Player1ScorePanel=AddNew<BaseObject>();
+	Player1ScorePanel->CreateChildComponent<dae::TextureColliderComp>("ScorePanel.png",false);
+	Player1ScorePanel->CreateChildComponent<dae::ScoreComp>("  Score : ", 0, fpsFont)->SetOffset(8.f,6.f);
+	Player1ScorePanel->T()->SetPosition(5, dae::Renderer::WINDOW_HEIGHT- Player1ScorePanel->T()->GetSize().second - 5);
 }

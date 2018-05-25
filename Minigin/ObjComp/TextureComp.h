@@ -6,12 +6,13 @@ namespace  dae{
 	class TextureComp:public BaseComponent
 	{
 	public:
-		TextureComp(const std::string& filename);
+		TextureComp(const std::string& filename,bool centerTexture=true);
 
 		void Render() const override;
 
 	protected:
 		std::shared_ptr<Texture2D> m_Texture;
+		bool m_centerTexture;
 	};
 
 }

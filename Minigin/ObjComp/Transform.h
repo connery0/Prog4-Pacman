@@ -2,10 +2,6 @@
 #include "BaseObject.h"
 #include <algorithm>
 
-#pragma warning(push)
-#pragma warning (disable:4201)
-#include <glm/vec2.hpp>
-#pragma warning(pop)
 
 #define RAD(x) x*0.0174533f
 #define DEG(x) x*57.2958f
@@ -59,8 +55,35 @@ public:
 	}
 	void SetTransform(const float x, const float y, const float rot,bool worldRotation=false)
 	{
-		mRotation = RAD(rot);
-		if(worldRotation){mRotation-=mParRotation;}
+		privateTransform(x,y,RAD(rot), worldRotation);
+	}
+	void AddTransform(const float x, const float y, const float rot)
+	{
+		privateTransform(mPosition.first +x, mPosition.second + y, mRotation+RAD(rot));
+	}
+
+	void SetRotation(float rot)
+	{
+		privateTransform(mPosition.first,mPosition.second, RAD(rot));
+	}
+	void SetPosition(const float x,const float y)
+	{
+		privateTransform(x,y,mRotation);
+	}
+	void SetPosition(const std::pair<float, float> pos)
+	{
+		privateTransform(pos.first, pos.second, mRotation);
+	}
+
+	std::pair<float, float> GetSize(){return mSize;}
+	void SetSize(const float x, const float y) { mSize.first=x;mSize.second =y;}
+
+
+private:
+	void privateTransform(const float x, const float y, const float rot, bool worldRotation = false)
+	{
+		mRotation = rot;
+		if (worldRotation) { mRotation -= mParRotation; }
 		mPosition.first = x;
 		mPosition.second = y;
 
@@ -72,38 +95,7 @@ public:
 			}
 		}
 	}
-	void AddTransform(const float x, const float y, const float rot)
-	{
-		mRotation += RAD(rot);
-		mPosition.first += x;
-		mPosition.second += y;
 
-		if (mParent->m_ChildObjects.size()>0)
-		{
-			for (auto childObject : mParent->m_ChildObjects)
-			{
-				childObject->T()->updateFromParent(GetRotation(), GetPosition());
-			}
-		}
-	}
-	void SetRotation(float rot)
-	{
-		SetTransform(mPosition.first,mPosition.second, rot);
-	}
-	void SetPosition(const float x,const float y)
-	{
-		SetTransform(x,y,mRotation);	
-	}
-	void SetPosition(const std::pair<float, float> pos)
-	{
-		SetTransform(pos.first, pos.second, mRotation);
-	}
-
-	std::pair<float, float> GetSize(){return mSize;}
-	void SetSize(const float x, const float y) { mSize.first=x;mSize.second =y;}
-
-
-private:
 	BaseObject* mParent = nullptr;
 	std::pair<float, float> mPosition{0.f,0.f };
 	float mRotation{0};

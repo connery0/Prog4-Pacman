@@ -41,7 +41,7 @@ void TextComp::Render() const
 	if (m_Texture != nullptr)
 	{
 		const auto pos = m_pParentObject->T()->GetPosition();
-		Renderer::GetInstance().RenderTexture(*m_Texture, pos.first + m_OffsetX, pos.second + m_OffsetY,m_pParentObject->T()->getRotationDeg());
+		Renderer::GetInstance().RenderTextureNoOffset(*m_Texture, pos.first + m_OffsetX, pos.second + m_OffsetY,m_pParentObject->T()->getRotationDeg());
 	}
 }
 

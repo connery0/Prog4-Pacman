@@ -6,7 +6,7 @@
 #include <SDL.h>
 
 
-dae::TextureColliderComp::TextureColliderComp(const std::string& filename):TextureComp(filename)
+dae::TextureColliderComp::TextureColliderComp(const std::string& filename, bool centerTexture ):TextureComp(filename,centerTexture)
 {
 }
 

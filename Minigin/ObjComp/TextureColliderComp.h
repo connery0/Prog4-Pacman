@@ -6,7 +6,7 @@ namespace  dae{
 	class TextureColliderComp:public TextureComp
 	{
 	public:
-		TextureColliderComp(const std::string& filename);
+		TextureColliderComp(const std::string& filename, bool centerTexture = true);
 
 		virtual void addParent(BaseObject* parentObj) override;
 	};

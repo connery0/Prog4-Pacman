@@ -1,10 +1,6 @@
 #pragma once
 #include "BaseObject.h"
 
-#pragma warning(push)
-#pragma warning (disable:4201)
-#include <glm/vec2.hpp>
-#pragma warning(pop)
 #include "vector"
 #include "Texture2D.h"
 
@@ -27,8 +23,10 @@ public:
 	void Render() const override;
 	void LoadLevel();
 	void LoadLevel(std::string FileName);
-	
+
+	TileType getTile(std::pair<float, float> pos);
 	TileType getTile(float x,float y);
+	TileType pickupTile(std::pair<float, float> pos);
 	TileType pickupTile(float x, float y);
 	
 	float getBorder(float p1, float p2);

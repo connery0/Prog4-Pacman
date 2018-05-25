@@ -52,8 +52,8 @@ namespace dae
 
 		 std::vector<bool**> m_KeysToRemove;
 		 bool m_Initialized;
-		bool pressed = true;
-		bool notPressed = false;
+		 bool pressed = true;
+		 bool notPressed = false;
 	};
 
 

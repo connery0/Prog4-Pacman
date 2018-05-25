@@ -4,6 +4,9 @@
 #include "../ObjComp/Texture2D.h"
 #include "../Scenes/SceneManager.h"
 
+int dae::Renderer::WINDOW_WIDTH = 0;
+int dae::Renderer::WINDOW_HEIGHT = 0;
+
 void dae::Renderer::Init(SDL_Window * window)
 {
 	mRenderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
@@ -29,6 +32,18 @@ void dae::Renderer::Destroy()
 		SDL_DestroyRenderer(mRenderer);
 		mRenderer = nullptr;
 	}
+}
+
+void dae::Renderer::RenderTextureNoOffset(const Texture2D& texture, float x, float y, double angle, SDL_Point* center,
+	SDL_RendererFlip flip) const
+{
+	SDL_Rect dst;
+	dst.x = static_cast<int>(x);
+	dst.y = static_cast<int>(y);
+	SDL_QueryTexture(texture.GetSDLTexture(), nullptr, nullptr, &dst.w, &dst.h);
+
+	//SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
+	SDL_RenderCopyEx(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst, angle, center, flip);
 }
 
 void dae::Renderer::RenderTexture(const Texture2D& texture, float x, float y, double angle, SDL_Point* center, SDL_RendererFlip flip) const

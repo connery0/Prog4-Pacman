@@ -58,8 +58,6 @@ template <typename _Ty, class ... _Types>
 std::shared_ptr<_Ty> BaseObject::CreateChildComponent(_Types&&... _Args)
 {
 	auto newComponent = std::make_shared<_Ty>(_Args...);
-	newComponent->m_pParentObject = this;
-	m_pComponents.push_back(newComponent);
 	AddComponent(newComponent);
 	return newComponent;
 }
