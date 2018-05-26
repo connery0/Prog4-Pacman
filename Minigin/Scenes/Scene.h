@@ -18,7 +18,9 @@ public:
 
 
 	template <class T>
-	std::vector<std::shared_ptr<BaseObject>> getObjectsWithComponent(bool searchChildren=false);;
+	std::vector<std::shared_ptr<BaseObject>> getObjectsWithComponent(bool searchChildren=false);
+	template <class T>
+	std::vector<std::shared_ptr<T>> getComponents(bool searchChildren);
 
 
 
@@ -91,3 +93,21 @@ std::vector<std::shared_ptr<BaseObject>> Scene::getObjectsWithComponent(bool sea
 	return returnVector;
 }
 
+
+template <class T>
+std::vector<std::shared_ptr<T>> Scene::getComponents(bool searchChildren)
+{
+	std::vector<std::shared_ptr<T>> returnVector;
+	for (std::shared_ptr<BaseObject>object : m_Objects)
+	{
+		std::vector<std::shared_ptr<T>> result = object->GetComponents<T>(searchChildren);
+		if(result.size()>0)
+		{
+			for(auto comp:result)
+			{
+				returnVector.push_back(comp);
+			}
+		}
+	}
+	return returnVector;
+}

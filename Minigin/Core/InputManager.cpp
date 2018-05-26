@@ -3,6 +3,9 @@
 #include <windows.h>
 #include <SDL.h>
 #include <algorithm>
+#include "../Scenes/SceneManager.h"
+#include "../Scenes/Scene.h"
+#include "../ObjComp/ButtonComp.h"
 
 
 void dae::InputManager::Initialize()
@@ -183,7 +186,20 @@ bool dae::InputManager::ProcessInput()
 			return false;
 		}
 		if (e.type == SDL_MOUSEBUTTONDOWN) {
+			int x, y;
+			SDL_GetMouseState(&x, &y);
 			
+			auto& SceneM = SceneManager::GetInstance();
+			auto scene =SceneM.GetActiveScene();
+			if(scene!=nullptr)
+			{
+				auto buttonComponents = scene->getComponents<ButtonComp>(true);
+				if(buttonComponents.size()>0)
+				{
+					for(auto button:buttonComponents)
+						button->click(x,y);
+				}
+			}
 		}
 	}
 

@@ -196,6 +196,8 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="Core\Log.h" />
     <ClInclude Include="Core\Minigin.h" />
     <ClInclude Include="GlobalGameMaster\GlobalMaster.h" />
+    <ClInclude Include="ObjComp\ButtonComp.h" />
+    <ClInclude Include="ObjComp\ButtonGroupObj.h" />
     <ClInclude Include="ObjComp\GhostLogicComp.h" />
     <ClInclude Include="ObjComp\LifeIndicator.h" />
     <ClInclude Include="ObjComp\MazeRunner.h" />
@@ -237,6 +239,8 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClCompile Include="Core\Log.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Core\Minigin.cpp" />
+    <ClCompile Include="ObjComp\ButtonComp.cpp" />
+    <ClCompile Include="ObjComp\ButtonGroupObj.cpp" />
     <ClCompile Include="ObjComp\GhostLogicComp.cpp" />
     <ClCompile Include="ObjComp\MazeRunner.cpp" />
     <ClCompile Include="MiniginPCH.cpp">

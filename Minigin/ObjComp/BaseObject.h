@@ -23,6 +23,8 @@ public:
 	void RemoveComponent(std::shared_ptr<BaseComponent> removeComp);
 	template<class T>
 	std::shared_ptr<T> GetComponent(bool searchChildren = false);
+	template<class T>
+	std::vector<std::shared_ptr<T>> GetComponents(bool searchChildren = false);
 
 	//ChildObjects	
 	template <typename _Ty, class ..._Types>
@@ -35,6 +37,7 @@ public:
 	void Tadd(float x,float y,float rot=0);
 	void Tset(float x, float y, float rot=0);
 	bool CollidesWith(std::shared_ptr<BaseObject>other);
+	bool CollidesWithPoint(int x, int y);
 
 	//Management variables
 	bool remove = false;
@@ -59,7 +62,7 @@ template <typename _Ty, class ... _Types>
 std::shared_ptr<_Ty> BaseObject::CreateChildComponent(_Types&&... _Args)
 {
 	auto newComponent = std::make_shared<_Ty>(_Args...);
-	AddComponent(newComponent);
+	AddComponent(std::dynamic_pointer_cast<BaseComponent>(newComponent));
 	return newComponent;
 }
 
@@ -81,8 +84,35 @@ std::shared_ptr<T> BaseObject::GetComponent(const bool searchChildren)
 				return child->GetComponent<T>(searchChildren);
 		}
 	}
-
 	return nullptr;
+}
+
+template <class T>
+std::vector<std::shared_ptr<T>> BaseObject::GetComponents(bool searchChildren)
+{
+	std::vector<std::shared_ptr<T>> returnVector;
+	const type_info& ti = typeid(T);
+	for (std::shared_ptr<BaseComponent> component : m_pComponents)
+	{
+		if (component && typeid(*component) == ti)
+			returnVector.push_back(std::dynamic_pointer_cast<T>(component));
+	}
+
+	if (searchChildren)
+	{
+		for (auto child : m_ChildObjects)
+		{
+			std::vector<std::shared_ptr<T>> childComponents = child->GetComponents<T>(searchChildren);
+			if(childComponents.size()>0)
+			{
+				for(std::shared_ptr<T> comp:childComponents)
+				{
+					returnVector.push_back(std::dynamic_pointer_cast<T>(comp));
+				}
+			}
+		}
+	}
+	return returnVector;
 }
 
 template <typename _Ty, class ... _Types>

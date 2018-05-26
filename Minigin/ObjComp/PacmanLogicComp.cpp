@@ -47,10 +47,11 @@ void PacmanLogicComp::CheckFloor()
 	bool atePowerup = false;
 	switch (floorType) {
 	case Coin:
-		addScore = 1;
+		addScore = 5;
 		m_Maze->pickupTile(m_pParentObject->T()->GetPosition());
 		break;
 	case Powerup:
+		addScore = 10;
 		atePowerup = true;
 		m_Maze->pickupTile(m_pParentObject->T()->GetPosition());
 		break;

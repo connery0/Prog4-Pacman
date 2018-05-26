@@ -60,7 +60,7 @@ void dae::Minigin::Initialize()
 void dae::Minigin::LoadGame() const
 {
 	SceneManager::GetInstance().AddScene(std::make_shared<SceneTitleScreen>());
-	SceneManager::GetInstance().AddScene(std::make_shared<SceneSinglePlayer>());
+	//SceneManager::GetInstance().AddScene(std::make_shared<SceneSinglePlayer>());
 }
 
 void dae::Minigin::Cleanup()

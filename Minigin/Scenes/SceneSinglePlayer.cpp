@@ -20,6 +20,8 @@
 #include "../ObjComp/LifeIndicator.h"
 #include "../ObjComp/MazeRunnerGoalScripts/PlayerControlledConsoleGhostGoalScript.h"
 #include "../ObjComp/MazeRunnerGoalScripts/PlayerControlledKeyboardGhostGoalScript.h"
+#include "../ObjComp/ButtonGroupObj.h"
+#include "../ObjComp/ButtonComp.h"
 
 
 SceneSinglePlayer::SceneSinglePlayer(): Scene("SinglePlayerMap")
@@ -44,7 +46,7 @@ void SceneSinglePlayer::Initialize()
 	
 	std::vector<TileType>blockers;
 	blockers.push_back(TileType::Wall);
-	auto newRunner = std::make_shared<MazeRunner>(level, std::make_shared<PlayerControlledGoalScript>(), 100.f);
+	auto newRunner = std::make_shared<MazeRunner>(level, std::make_shared<PlayerControlledGoalScript>(), 70.f);
 	newRunner->m_DoesTileBlock[Prison]=true;
 	pacman->AddComponent(newRunner);
 	m_Runners.push_back(newRunner);
@@ -56,7 +58,7 @@ void SceneSinglePlayer::Initialize()
 	newGhost->T()->SetPosition(GlobalMaster::GetInstance().m_Level_PrisonTiles[0]);
 	newGhost->CreateChildComponent<dae::TextureColliderComp>("Ghost2.png");
 
-	auto ghostRunner = std::make_shared<MazeRunner>(level, std::make_shared<GhostGoalScript>(), 100.f, false);
+	auto ghostRunner = std::make_shared<MazeRunner>(level, std::make_shared<GhostGoalScript>(), 70.f, false);
 	newGhost->AddComponent(ghostRunner); 
 	m_Runners.push_back(ghostRunner);
 	newGhost->CreateChildComponent<GhostLogicComp>(level);
@@ -67,7 +69,7 @@ void SceneSinglePlayer::Initialize()
 	newGhost2->T()->SetPosition(GlobalMaster::GetInstance().m_Level_PrisonTiles[3]);
 	newGhost2->CreateChildComponent<dae::TextureColliderComp>("Ghost2.png");
 
-	auto ghostRunner2 = std::make_shared<MazeRunner>(level, std::make_shared<GhostGoalScript>(), 100.f, false);
+	auto ghostRunner2 = std::make_shared<MazeRunner>(level, std::make_shared<GhostGoalScript>(), 70.f, false);
 	newGhost2->AddComponent(ghostRunner2);
 	m_Runners.push_back(ghostRunner2);
 	newGhost2->CreateChildComponent<GhostLogicComp>(level);
@@ -85,7 +87,7 @@ void SceneSinglePlayer::Initialize()
 
 	auto Player1ScorePanel=AddNew<BaseObject>();
 	Player1ScorePanel->CreateChildComponent<dae::TextureColliderComp>("ScorePanel.png",false);
-	Player1ScorePanel->CreateChildComponent<dae::ScoreComp>("  Score : ", 1, fpsFont)->SetOffset(8.f,6.f);
+	Player1ScorePanel->CreateChildComponent<dae::ScoreComp>("  Score : ",0, fpsFont)->SetOffset(8.f,6.f);
 	Player1ScorePanel->T()->SetPosition(5, dae::Renderer::WINDOW_HEIGHT- Player1ScorePanel->T()->GetSize().second - 5);
 
 	auto lifeIndicator = Player1ScorePanel->CreateChildObj<BaseObject>();

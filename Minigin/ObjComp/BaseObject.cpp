@@ -54,10 +54,7 @@ void BaseObject::Render() const
 	}
 }
 
-/**
- * \param newComponent (Can not be a transformComponent)
- * \return object, for easy chaining
- */
+
  void BaseObject::AddComponent(std::shared_ptr<BaseComponent> newComponent){
 		newComponent->addParent(this);
 		m_pComponents.push_back(newComponent);
@@ -103,5 +100,15 @@ bool BaseObject::CollidesWith(std::shared_ptr<BaseObject> other)
 	&&	(m_Transform->GetPosition().first<otherT->GetPosition().first + otherT->GetSize().first / 2)
 	&&	(m_Transform->GetPosition().second>otherT->GetPosition().second- otherT->GetSize().second / 2)
 	&&	(m_Transform->GetPosition().second<otherT->GetPosition().second + otherT->GetSize().second / 2);
+
+}
+
+bool BaseObject::CollidesWithPoint(const int x, const int y)
+{
+	return
+		(x>m_Transform->GetPosition().first - m_Transform->GetSize().first / 2)
+		&& (x<m_Transform->GetPosition().first + m_Transform->GetSize().first / 2)
+		&& (y>m_Transform->GetPosition().second - m_Transform->GetSize().second / 2)
+		&& (y<m_Transform->GetPosition().second + m_Transform->GetSize().second / 2);
 
 }

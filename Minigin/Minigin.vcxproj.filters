@@ -138,6 +138,12 @@
     <ClInclude Include="ObjComp\MazeRunnerGoalScripts\PlayerControlledKeyboardGhostGoalScript.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ObjComp\ButtonComp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjComp\ButtonGroupObj.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -210,6 +216,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ObjComp\GhostLogicComp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjComp\ButtonGroupObj.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjComp\ButtonComp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

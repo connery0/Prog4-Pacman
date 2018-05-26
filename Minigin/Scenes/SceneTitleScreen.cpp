@@ -4,6 +4,8 @@
 #include "../ObjComp/FpsComp.h"
 #include "../ObjComp/TextureComp.h"
 #include "../ObjComp/Player1MovementComp.h"
+#include "../ObjComp/ButtonComp.h"
+#include "../Core/Renderer.h"
 
 
 SceneTitleScreen::SceneTitleScreen(): Scene("TitleScene")
@@ -18,42 +20,40 @@ SceneTitleScreen::~SceneTitleScreen()
 void SceneTitleScreen::Initialize()
 {
 	auto background = AddNew<BaseObject>();
-	background->AddComponent(std::make_shared<dae::TextureComp>("background.jpg"));
-	{
-		auto Bo = std::make_shared<BaseObject>();
-		Bo->AddComponent(std::make_shared<dae::TextureComp>("logo.png"));
+	background->CreateChildComponent<dae::TextureComp>("background.jpg",false);
 
-		Bo->Tset(216.f, 180, 90);
-		Add(Bo);
-	}
-
-	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-
-	{
-		auto title = std::make_shared<BaseObject>();
-		title->Tset(80, 20);
-
-		title->CreateChildComponent<TextComp>("Programming 4:", font, SDL_Color{ 255,255, 255 });
-		auto subTitle = title->CreateChildComponent<TextComp>("Return of the Bools", font, SDL_Color{ 255, 150, 150 });
-		subTitle->SetOffset(80, 50);
-		Add(title); }
+	auto title = AddNew<BaseObject>();
+	title->CreateChildComponent<dae::TextureComp>("Title.png");
+	title->T()->SetPosition(525.f,100.f);
 
 
-	auto fpsFont = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 20);
+	std::shared_ptr<BaseObject>TempObjectRef;
+	std::shared_ptr<BaseObject>TempButtonComponentRef;
 
-	auto fpsObject = std::make_shared<BaseObject>();
-	fpsObject->AddComponent(std::make_shared<dae::FpsComp>(fpsFont));
-	fpsObject->Tset(100, 100, 100);
-
-	//auto fpsChild = std::make_shared<BaseObject>();
-	auto fpsChild = fpsObject->CreateChildObj<BaseObject>();
-
-	fpsChild->Tset(0, 40, 0);
-	fpsChild->AddComponent(std::make_shared<dae::FpsComp>(fpsFont));
-	fpsChild->CreateChildComponent<player1_movement_comp>();
+	auto LevelSelect = AddNew<BaseObject>();
+	LevelSelect->CreateChildComponent<dae::TextureComp>("LevelTitle.png");
+	LevelSelect->T()->SetPosition(300.f,200.f);
+	LevelSelectGroup= LevelSelect->CreateChildComponent<ButtonGroupComp>();
+	TempObjectRef = LevelSelect->CreateChildObj<BaseObject>();
+	TempObjectRef->T()->SetPosition(100,0);
+	TempButtonComponentRef= TempObjectRef->CreateChildComponent<ButtonComp>("Level 1");
+	
 
 
-	fpsObject->AddChild(fpsChild);
 
-	Add(fpsObject);
+	auto UIButtons = AddNew<BaseObject>();
+	UIButtons->T()->SetPosition(dae::Renderer::WINDOW_WIDTH / 2.f, dae::Renderer::WINDOW_HEIGHT / 2.f);
+	auto buttonGroup = UIButtons->CreateChildComponent<ButtonGroupComp>();
+	auto Obutton1 = UIButtons->CreateChildObj<BaseObject>();
+
+	auto button1 = Obutton1->CreateChildComponent<ButtonComp>("Button1");
+	Obutton1->CreateChildComponent<dae::TextureComp>("Level1.png");
+	buttonGroup->linkButton(button1)->setGroup(buttonGroup);
+	Obutton1->T()->SetPosition(-100, 0);
+
+	auto Obutton2 = UIButtons->CreateChildObj<BaseObject>();
+	auto button2 = Obutton2->CreateChildComponent<ButtonComp>("button2");
+	Obutton2->CreateChildComponent<dae::TextureComp>("Level2.png");
+	buttonGroup->linkButton(button2)->setGroup(buttonGroup);
+	Obutton2->T()->SetPosition(100, 0);
 }

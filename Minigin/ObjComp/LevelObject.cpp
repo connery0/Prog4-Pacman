@@ -48,7 +48,7 @@ void LevelObject::Render() const
 					break;
 				case Fruit:
 					renderer.RenderTexture(*t_Floor, (0.5f+Position.first)*m_TileSize, (0.5f+Position.second)*m_TileSize, 0);
-					renderer.RenderTexture(*t_Fruit, (0.5f+Position.first)*m_TileSize, (0.5f+Position.second)*m_TileSize, 0);
+					renderer.RenderTexture(*t_Fruit, (0.5f+Position.first)*m_TileSize, (0.5f+Position.second)*m_TileSize,0);
 					break;
 			}
 			Position.first++;
