@@ -102,9 +102,6 @@
     <ClInclude Include="ObjComp\MazeRunnerGoalScripts\GoalCalculationScript.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ObjComp\MazeRunnerGoalScripts\PlayerControlledGoalScript.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ObjComp\PacmanAnimation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -115,6 +112,30 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ObjComp\GhostLogicComp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjComp\MazeRunnerGoalScripts\PlayerControlledGoalScript.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjComp\MazeRunnerGoalScripts\GhostGoalScript.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjComp\MazeRunnerGoalScripts\PlayerControlledGhostGoalScript.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjComp\LifeIndicator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjComp\MazeRunnerGoalScripts\PlayerControlledConsoleGhostGoalScript.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjComp\MazeRunnerGoalScripts\PlayerControlledConsleGoalScript.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjComp\MazeRunnerGoalScripts\PlayerControlledKeyboardGoalScript.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjComp\MazeRunnerGoalScripts\PlayerControlledKeyboardGhostGoalScript.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -171,9 +192,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\SceneSinglePlayer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GlobalGameMaster\GlobalMaster.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\SceneTitleScreen.cpp">

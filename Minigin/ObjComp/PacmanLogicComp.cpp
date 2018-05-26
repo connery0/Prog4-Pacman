@@ -15,10 +15,16 @@ PacmanLogicComp::PacmanLogicComp(std::shared_ptr<LevelObject> maze, int playerId
 
 void PacmanLogicComp::Update(float deltaTime)
 {
+	if(m_RunnerScript==nullptr)
+		m_RunnerScript=m_pParentObject->GetComponent<MazeRunner>();
+
 	CheckFloor();
 
 	if(m_PowerupTime>0)
 	{
+		if(m_RunnerScript!=nullptr)
+			m_RunnerScript->m_SpeedMod=1.5f;
+
 		m_PowerupTime-=deltaTime;
 		if(m_PowerupTime<=0)
 		{
@@ -26,6 +32,9 @@ void PacmanLogicComp::Update(float deltaTime)
 			texture->ChangeTexture("Pacman.png");
 		}
 	}
+	else if (m_RunnerScript != nullptr)
+		m_RunnerScript->m_SpeedMod = 1.f;
+
 	CheckCollision();
 	if(isDead)
 		Die();
@@ -85,7 +94,7 @@ void PacmanLogicComp::CheckCollision()
 						ghostLogic->isDead = true;
 						continue;
 					}
-					else
+					else if(!ghostLogic->isDead && !ghostLogic->isGhosting)//Don't mind dead ghosts
 					{
 						isDead = true;
 						return; //No point in checking further

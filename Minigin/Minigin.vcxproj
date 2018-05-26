@@ -197,6 +197,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="Core\Minigin.h" />
     <ClInclude Include="GlobalGameMaster\GlobalMaster.h" />
     <ClInclude Include="ObjComp\GhostLogicComp.h" />
+    <ClInclude Include="ObjComp\LifeIndicator.h" />
     <ClInclude Include="ObjComp\MazeRunner.h" />
     <ClInclude Include="MiniginPCH.h" />
     <ClInclude Include="Core\Renderer.h" />
@@ -208,8 +209,14 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="ObjComp\FpsComp.h" />
     <ClInclude Include="ObjComp\InputComp.h" />
     <ClInclude Include="ObjComp\LevelObject.h" />
+    <ClInclude Include="ObjComp\MazeRunnerGoalScripts\GhostGoalScript.h" />
     <ClInclude Include="ObjComp\MazeRunnerGoalScripts\GoalCalculationScript.h" />
+    <ClInclude Include="ObjComp\MazeRunnerGoalScripts\PlayerControlledGhostGoalScript.h" />
+    <ClInclude Include="ObjComp\MazeRunnerGoalScripts\PlayerControlledConsoleGhostGoalScript.h" />
     <ClInclude Include="ObjComp\MazeRunnerGoalScripts\PlayerControlledGoalScript.h" />
+    <ClInclude Include="ObjComp\MazeRunnerGoalScripts\PlayerControlledConsleGoalScript.h" />
+    <ClInclude Include="ObjComp\MazeRunnerGoalScripts\PlayerControlledKeyboardGhostGoalScript.h" />
+    <ClInclude Include="ObjComp\MazeRunnerGoalScripts\PlayerControlledKeyboardGoalScript.h" />
     <ClInclude Include="ObjComp\PacmanAnimation.h" />
     <ClInclude Include="ObjComp\PacmanLogicComp.h" />
     <ClInclude Include="ObjComp\Player1MovementComp.h" />
@@ -228,7 +235,6 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClCompile Include="Core\Font.cpp" />
     <ClCompile Include="Core\InputManager.cpp" />
     <ClCompile Include="Core\Log.cpp" />
-    <ClCompile Include="GlobalGameMaster\GlobalMaster.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Core\Minigin.cpp" />
     <ClCompile Include="ObjComp\GhostLogicComp.cpp" />

@@ -1,30 +1,31 @@
 #pragma once
 #include "GoalCalculationScript.h"
+//#include "../InputComp.h"
+#include "GhostGoalScript.h"
 #include "../InputComp.h"
-#include "../BaseObject.h"
 
-class PlayerControlledGoalScript: public goalScript
+class PlayerControlledGhostGoalScript: public GhostGoalScript
 {
-
-	virtual std::pair<float, float> CalculateGoalSync(BaseObject* Parent, float TimePassed) override
+	std::pair<float,float> CalculateRoamingGoal(BaseObject* Parent, float TimePassed) override
 	{
-		(void)TimePassed;//Doesn't matter for pacman
-		if (!m_Initialized)
+		(void)TimePassed;
+
+		if(!m_Initialized)
 			Init(Parent);
 
-		std::pair<float,float>goal{0.f,0.f};
+		std::pair<float, float>goal{ 0.f,0.f };
 		if (m_Input->isDown(MoveLeft))
 			goal.first -= 1;
 		if (m_Input->isDown(MoveRight))
-			goal.first+= 1;
+			goal.first += 1;
 		if (m_Input->isDown(MoveUp))
 			goal.second -= 1;
 		if (m_Input->isDown(MoveDown))
 			goal.second += 1;
 
 		return goal;
-	}
-	void PlayerControlledGoalScript::Init(BaseObject* Parent)
+	}	
+	void Init(BaseObject* Parent)
 	{
 		if (m_Input == nullptr)
 		{
@@ -45,21 +46,20 @@ class PlayerControlledGoalScript: public goalScript
 
 		m_Initialized = true;
 	}
-	
 protected:
 	virtual void AddInputs()
 	{
 		m_Input->addInput(MoveLeft, 'A');
 		m_Input->addInput(MoveRight, 'D');
 		m_Input->addInput(MoveUp, 'W');
-		m_Input->addInput(MoveDown, 'S');		
+		m_Input->addInput(MoveDown, 'S');
 	}
 	enum Actions
 	{
-		MoveLeft,MoveRight,MoveUp,MoveDown
+		MoveLeft, MoveRight, MoveUp, MoveDown
 	};
 
-	std::shared_ptr<InputComp> m_Input=nullptr;
-	bool m_Initialized=false;
+	std::shared_ptr<InputComp> m_Input = nullptr;
+	bool m_Initialized = false;
 
 };

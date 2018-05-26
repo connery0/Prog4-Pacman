@@ -10,14 +10,13 @@ class goalScript
 public:
 	virtual ~goalScript() = default;
 
-	virtual void CalculateGoalAsync(BaseObject* Parent, std::promise<std::pair<float, float>> && p)
+	virtual void CalculateGoalAsync(BaseObject* Parent, float TimePassed, std::promise<std::pair<float, float>> && p)
 	{
-		(void) Parent;
-		p.set_value(std::make_pair(1.f,1.f));
+		p.set_value(CalculateGoalSync(Parent,TimePassed));
 	}
-	virtual std::pair<float,float> CalculateGoalSync(BaseObject* Parent)
+	virtual std::pair<float,float> CalculateGoalSync(BaseObject* Parent,float TimePassed)
 	{
-		(void)Parent;
+		(void)Parent,TimePassed;
 		return std::make_pair(1.f, 1.f);
 	}
 };

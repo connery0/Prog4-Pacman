@@ -182,10 +182,6 @@ bool dae::InputManager::ProcessInput()
 		if (e.type == SDL_QUIT) {
 			return false;
 		}
-		if (e.type == SDL_KEYDOWN) {
-			auto a =e.key;
-			
-		}
 		if (e.type == SDL_MOUSEBUTTONDOWN) {
 			
 		}

@@ -126,7 +126,12 @@ TileType LevelObject::getTile(std::pair<float, float>pos)
 
 TileType LevelObject::getTile(float x, float y)
 {
-	return m_Tiles[static_cast<int>(x/m_TileSize)+ static_cast<int>(y / m_TileSize)*m_Width];
+	int indexX= static_cast<int>(x / m_TileSize);
+	int indexY=static_cast<int>(y / m_TileSize);
+	if(indexX<0||indexX>m_Width||indexY<0||indexY>m_Height)
+		return Wall;
+
+	return m_Tiles[indexX+indexY*m_Width];
 }
 
 TileType LevelObject::pickupTile(std::pair<float, float> pos)
@@ -153,4 +158,13 @@ float LevelObject::getBorder(float p1, float p2)
 	if (p1>p2)return p1;
 	return p2;
 
+}
+
+std::pair<int, int> LevelObject::GetTileCoord(std::pair<float, float> testCoord)
+{
+	int indexX = static_cast<int>(testCoord.first / m_TileSize);
+	int indexY = static_cast<int>(testCoord.second/ m_TileSize);
+	if (indexX<0 || indexX>m_Width || indexY<0 || indexY>m_Height)
+		return std::make_pair(-1,-1);
+	return std::make_pair(indexX,indexY);
 }

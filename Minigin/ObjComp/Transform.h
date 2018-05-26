@@ -53,6 +53,12 @@ public:
 			}
 		}
 	}
+
+	void updateChild(std::shared_ptr<BaseObject> otherObject)
+	{
+		otherObject->T()->updateFromParent(GetRotation(),GetPosition());
+	}
+
 	void SetTransform(const float x, const float y, const float rot,bool worldRotation=false)
 	{
 		privateTransform(x,y,RAD(rot), worldRotation);

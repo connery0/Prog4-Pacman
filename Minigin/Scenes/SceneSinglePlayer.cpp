@@ -14,6 +14,12 @@
 #include "../Core/Renderer.h"
 #include "../ObjComp/PacmanLogicComp.h"
 #include "../ObjComp/GhostLogicComp.h"
+#include "../ObjComp/MazeRunnerGoalScripts/PlayerControlledKeyboardGoalScript.h"
+#include "../ObjComp/MazeRunnerGoalScripts/GhostGoalScript.h"
+#include "../ObjComp/MazeRunnerGoalScripts/PlayerControlledGhostGoalScript.h"
+#include "../ObjComp/LifeIndicator.h"
+#include "../ObjComp/MazeRunnerGoalScripts/PlayerControlledConsoleGhostGoalScript.h"
+#include "../ObjComp/MazeRunnerGoalScripts/PlayerControlledKeyboardGhostGoalScript.h"
 
 
 SceneSinglePlayer::SceneSinglePlayer(): Scene("SinglePlayerMap")
@@ -38,21 +44,37 @@ void SceneSinglePlayer::Initialize()
 	
 	std::vector<TileType>blockers;
 	blockers.push_back(TileType::Wall);
-	auto newRunner = std::make_shared<MazeRunner>(level, std::make_shared<PlayerControlledGoalScript>(), 50.f);
-	newRunner->m_DoesTileBlock[Wall] = false;
+	auto newRunner = std::make_shared<MazeRunner>(level, std::make_shared<PlayerControlledGoalScript>(), 100.f);
+	newRunner->m_DoesTileBlock[Prison]=true;
 	pacman->AddComponent(newRunner);
 	m_Runners.push_back(newRunner);
 	pacman->CreateChildComponent<PacmanAnimation>();
-	pacman->CreateChildComponent<PacmanLogicComp>(level,1);
+	pacman->CreateChildComponent<PacmanLogicComp>(level,0);
+	//pacman->CreateChildObj<BaseObject>()->CreateChildComponent<dae::TextureComp>("Bow.png");
 
 	auto newGhost = AddNew<BaseObject>();
 	newGhost->T()->SetPosition(GlobalMaster::GetInstance().m_Level_PrisonTiles[0]);
-	newGhost->CreateChildComponent<dae::TextureColliderComp>("Ghost.png");
+	newGhost->CreateChildComponent<dae::TextureColliderComp>("Ghost2.png");
 
-	auto ghostRunner = std::make_shared<MazeRunner>(level, std::make_shared<goalScript>(), 50.f, true);
+	auto ghostRunner = std::make_shared<MazeRunner>(level, std::make_shared<GhostGoalScript>(), 100.f, false);
 	newGhost->AddComponent(ghostRunner); 
 	m_Runners.push_back(ghostRunner);
 	newGhost->CreateChildComponent<GhostLogicComp>(level);
+	newGhost->CreateChildObj<BaseObject>()->CreateChildComponent<dae::TextureComp>("Eyes.png");
+	//newGhost->CreateChildObj<BaseObject>()->CreateChildComponent<dae::TextureComp>("Bow.png");
+
+	auto newGhost2 = AddNew<BaseObject>();
+	newGhost2->T()->SetPosition(GlobalMaster::GetInstance().m_Level_PrisonTiles[3]);
+	newGhost2->CreateChildComponent<dae::TextureColliderComp>("Ghost2.png");
+
+	auto ghostRunner2 = std::make_shared<MazeRunner>(level, std::make_shared<GhostGoalScript>(), 100.f, false);
+	newGhost2->AddComponent(ghostRunner2);
+	m_Runners.push_back(ghostRunner2);
+	newGhost2->CreateChildComponent<GhostLogicComp>(level);
+	newGhost2->CreateChildObj<BaseObject>()->CreateChildComponent<dae::TextureComp>("Eyes.png");
+	newGhost2->CreateChildObj<BaseObject>()->CreateChildComponent<dae::TextureComp>("Bow.png");
+
+
 
 	auto fpsFont = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 20);
 
@@ -65,4 +87,18 @@ void SceneSinglePlayer::Initialize()
 	Player1ScorePanel->CreateChildComponent<dae::TextureColliderComp>("ScorePanel.png",false);
 	Player1ScorePanel->CreateChildComponent<dae::ScoreComp>("  Score : ", 1, fpsFont)->SetOffset(8.f,6.f);
 	Player1ScorePanel->T()->SetPosition(5, dae::Renderer::WINDOW_HEIGHT- Player1ScorePanel->T()->GetSize().second - 5);
+
+	auto lifeIndicator = Player1ScorePanel->CreateChildObj<BaseObject>();
+	lifeIndicator->T()->SetPosition(50.f,-25.f);
+	auto lifeChild = lifeIndicator->CreateChildObj<BaseObject>();
+	lifeChild->CreateChildComponent<LifeIndicator>(0,0);
+	lifeChild->T()->SetPosition(0.f,0.f);
+	
+	lifeChild = lifeIndicator->CreateChildObj<BaseObject>();
+	lifeChild->CreateChildComponent<LifeIndicator>(0, 1);
+	lifeChild->T()->SetPosition(25.f, 0.f);
+
+	lifeChild = lifeIndicator->CreateChildObj<BaseObject>();
+	lifeChild->CreateChildComponent<LifeIndicator>(0, 2);
+	lifeChild->T()->SetPosition(50.f, 0.f);
 }

@@ -31,6 +31,15 @@ public:
 		std::make_pair(TileType::Fruit, false),
 		std::make_pair(TileType::SpawnPoint, false),
 	};
+
+	void setAsync(bool newAsync)
+	{
+		if (isAsync&&goalCalculation.joinable())
+			goalCalculation.join();
+		isAsync=newAsync;
+	};
+
+	float m_SpeedMod=1.f;
 protected:
 	float m_Speed=0;
 

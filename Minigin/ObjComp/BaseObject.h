@@ -89,8 +89,6 @@ template <typename _Ty, class ... _Types>
 std::shared_ptr<_Ty> BaseObject::CreateChildObj(_Types&&... _Args)
 {
 	std::shared_ptr<_Ty> newChild = std::make_shared<_Ty>(_Args...);
-	m_ChildObjects.push_back(newChild);
-	newChild->m_pParentObject = this;
-
+	AddChild(newChild);
 	return newChild;
 }

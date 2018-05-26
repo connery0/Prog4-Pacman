@@ -18,6 +18,5 @@ protected:
 
 private:
 	friend class BaseObject;
-
 };
 

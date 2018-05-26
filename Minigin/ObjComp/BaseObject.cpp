@@ -73,7 +73,7 @@ void BaseObject::AddChild( std::shared_ptr<BaseObject> newChild)
 {
 	m_ChildObjects.push_back(newChild);
 	newChild->m_pParentObject = this;
-	newChild->T()->updateFromParent(m_Transform->GetRotation(),m_Transform->GetPosition());
+	T()->updateChild(newChild);
 }
 
 void BaseObject::RemoveChild( std::shared_ptr<BaseObject> oldChild)

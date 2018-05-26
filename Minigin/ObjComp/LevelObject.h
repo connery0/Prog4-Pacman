@@ -30,14 +30,13 @@ public:
 	TileType pickupTile(float x, float y);
 	
 	float getBorder(float p1, float p2);
-
+	static std::pair<int, int> GetTileCoord(std::pair<float,float> testCoord);
 
 protected:
-	//std::pair<float, float> m_Size {21,17};
-	const int m_Width = 21;
-	const int m_Height=17;
 
-	const int m_TileSize=50;
+	static const int m_Width = 21;
+	static const int m_Height=17;
+	static const int m_TileSize=50;
 
 	const std::string FileNameWall ="Wall2.png";
 	std::shared_ptr<dae::Texture2D> t_Wall;
