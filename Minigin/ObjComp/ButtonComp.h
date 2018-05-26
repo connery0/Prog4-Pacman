@@ -8,7 +8,10 @@ class ButtonComp:public dae::TextureColliderComp
 public:
 	ButtonComp(std::string goal):m_goal(goal),isActive(false), ACTIVE("ButtonOn.png"),INACTIVE("ButtonOff.png"),TextureColliderComp("ButtonOff.png")
 	{};
-
+	~ButtonComp()
+	{
+		ButtonGroups.clear();
+	}
 	void setGroup(std::shared_ptr<ButtonGroupComp>newGroup);
 	void addGroup(std::shared_ptr<ButtonGroupComp>newGroup);
 

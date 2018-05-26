@@ -26,7 +26,7 @@ public:
 
 	virtual void Initialize()=0;
 
-	void Update(float deltaTime);
+	virtual void Update(float deltaTime);
 	void Render() const;
 	bool CompareName(const std::string& compareName) const { return m_Name.compare(compareName)==0; }
 	virtual ~Scene();

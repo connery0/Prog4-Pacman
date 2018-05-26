@@ -15,6 +15,13 @@ SceneTitleScreen::SceneTitleScreen(): Scene("TitleScene")
 
 SceneTitleScreen::~SceneTitleScreen()
 {
+
+	if (LevelSelectGroup)LevelSelectGroup->Clear();
+	if(Player1ControlGroup) Player1ControlGroup->Clear();
+	if (Player2ControlGroup)Player2ControlGroup->Clear();
+	if (ControllerOwnerGroup)ControllerOwnerGroup->Clear();
+	if (Player2GameModeGroup)Player2GameModeGroup->Clear();
+	if (StartGameGroup)StartGameGroup->Clear();
 }
 
 void SceneTitleScreen::Initialize()
@@ -28,32 +35,128 @@ void SceneTitleScreen::Initialize()
 
 
 	std::shared_ptr<BaseObject>TempObjectRef;
-	std::shared_ptr<BaseObject>TempButtonComponentRef;
+	std::shared_ptr<ButtonComp>TempButtonComponentRef;
+
+	auto ButtonGroupManager = AddNew<BaseObject>();
+	LevelSelectGroup = ButtonGroupManager->CreateChildComponent<ButtonGroupComp>();
+	Player1ControlGroup = ButtonGroupManager->CreateChildComponent<ButtonGroupComp>();
+	Player2ControlGroup = ButtonGroupManager->CreateChildComponent<ButtonGroupComp>();
+	ControllerOwnerGroup = ButtonGroupManager->CreateChildComponent<ButtonGroupComp>();
+	Player2GameModeGroup = ButtonGroupManager->CreateChildComponent<ButtonGroupComp>();
+	StartGameGroup = ButtonGroupManager->CreateChildComponent<ButtonGroupComp>();
 
 	auto LevelSelect = AddNew<BaseObject>();
 	LevelSelect->CreateChildComponent<dae::TextureComp>("LevelTitle.png");
 	LevelSelect->T()->SetPosition(300.f,200.f);
-	LevelSelectGroup= LevelSelect->CreateChildComponent<ButtonGroupComp>();
 	TempObjectRef = LevelSelect->CreateChildObj<BaseObject>();
-	TempObjectRef->T()->SetPosition(100,0);
+	TempObjectRef->T()->SetPosition(185,0);
 	TempButtonComponentRef= TempObjectRef->CreateChildComponent<ButtonComp>("Level 1");
+	LevelSelectGroup->linkButton(TempButtonComponentRef)->addGroup(LevelSelectGroup);
+	TempObjectRef->CreateChildComponent<dae::TextureComp>("Level1.png");
+
+	TempObjectRef = LevelSelect->CreateChildObj<BaseObject>();
+	TempObjectRef->T()->SetPosition(390, 0);
+	TempButtonComponentRef = TempObjectRef->CreateChildComponent<ButtonComp>("Level 2");
+	LevelSelectGroup->linkButton(TempButtonComponentRef)->addGroup(LevelSelectGroup);
+	TempObjectRef->CreateChildComponent<dae::TextureComp>("Level2.png");
+
+
+
+	auto Player1Options=AddNew<BaseObject>();
+	Player1Options->CreateChildComponent<dae::TextureComp>("P1.png");
+	Player1Options->T()->SetPosition(100,300);
+		//Keyboard
+	TempObjectRef = Player1Options->CreateChildObj<BaseObject>();
+	TempObjectRef->T()->SetPosition(60, 100);
+	TempButtonComponentRef = TempObjectRef->CreateChildComponent<ButtonComp>("KeyboardP1");
+	Player1ControlGroup->linkButton(TempButtonComponentRef)->addGroup(Player1ControlGroup);
+	TempObjectRef->CreateChildComponent<dae::TextureComp>("Keyboard.png");
+		//Controller
+	TempObjectRef = Player1Options->CreateChildObj<BaseObject>();
+	TempObjectRef->T()->SetPosition(60, 200);
+	TempButtonComponentRef = TempObjectRef->CreateChildComponent<ButtonComp>("ControllerP1");
+	ControllerOwnerGroup->linkButton(TempButtonComponentRef)->addGroup(ControllerOwnerGroup);
+	Player1ControlGroup->linkButton(TempButtonComponentRef)->addGroup(Player1ControlGroup);
+	TempObjectRef->CreateChildComponent<dae::TextureComp>("Controller.png");
+
+
+
+		//Second Player
+	auto Player2Options = AddNew<BaseObject>();
+	Player2Options->CreateChildComponent<dae::TextureComp>("P2.png");
+	Player2Options->T()->SetPosition(400, 300);
 	
+		//Not Joining
+	TempObjectRef = Player2Options->CreateChildObj<BaseObject>();
+	TempObjectRef->T()->SetPosition(60, 100);
+	TempButtonComponentRef = TempObjectRef->CreateChildComponent<ButtonComp>("NoP2");
+	Player2ControlGroup->linkButton(TempButtonComponentRef)->addGroup(Player2ControlGroup);
+	Player2GameModeGroup->linkButton(TempButtonComponentRef)->addGroup(Player2GameModeGroup);
+	TempObjectRef->CreateChildComponent<dae::TextureComp>("Disabled.png");
+	
+		//Keyboard
+	TempObjectRef = Player2Options->CreateChildObj<BaseObject>();
+	TempObjectRef->T()->SetPosition(60, 200);
+	TempButtonComponentRef = TempObjectRef->CreateChildComponent<ButtonComp>("KeyboardP2");
+	Player2ControlGroup->linkButton(TempButtonComponentRef)->addGroup(Player2ControlGroup);
+	TempObjectRef->CreateChildComponent<dae::TextureComp>("Keyboard.png");
+		//Controller
+	TempObjectRef = Player2Options->CreateChildObj<BaseObject>();
+	TempObjectRef->T()->SetPosition(60, 300);
+	TempButtonComponentRef = TempObjectRef->CreateChildComponent<ButtonComp>("ControllerP2");
+	ControllerOwnerGroup->linkButton(TempButtonComponentRef)->addGroup(ControllerOwnerGroup);
+	Player2ControlGroup->linkButton(TempButtonComponentRef)->addGroup(Player2ControlGroup);
+	TempObjectRef->CreateChildComponent<dae::TextureComp>("Controller.png");
+
+		//SecondPacman
+	TempObjectRef = Player2Options->CreateChildObj<BaseObject>();
+	TempObjectRef->T()->SetPosition(260, 100);
+	TempButtonComponentRef = TempObjectRef->CreateChildComponent<ButtonComp>("Pacman");
+	Player2GameModeGroup->linkButton(TempButtonComponentRef)->addGroup(Player2GameModeGroup);
+	TempObjectRef->CreateChildComponent<dae::TextureComp>("Pacman.png");
+	TempObjectRef->CreateChildComponent<dae::TextureComp>("Bow.png");
+
+		//Ghost
+	TempObjectRef = Player2Options->CreateChildObj<BaseObject>();
+	TempObjectRef->T()->SetPosition(460, 100);
+	TempButtonComponentRef = TempObjectRef->CreateChildComponent<ButtonComp>("Ghost");
+	Player2GameModeGroup->linkButton(TempButtonComponentRef)->addGroup(Player2GameModeGroup);
+	TempObjectRef->CreateChildComponent<dae::TextureComp>("Ghost2.png");
+	TempObjectRef->CreateChildComponent<dae::TextureComp>("Eyes.png");
 
 
+	//GO
+	auto StartButton = AddNew<BaseObject>();
+	TempButtonComponentRef=StartButton->CreateChildComponent<ButtonComp>("Start");
+	StartGameGroup->linkButton(TempButtonComponentRef)->setGroup(StartGameGroup);
+	StartButton->T()->SetPosition(520, 730);
+	StartButton->CreateChildComponent<dae::TextureComp>("Start.png");
+}
 
-	auto UIButtons = AddNew<BaseObject>();
-	UIButtons->T()->SetPosition(dae::Renderer::WINDOW_WIDTH / 2.f, dae::Renderer::WINDOW_HEIGHT / 2.f);
-	auto buttonGroup = UIButtons->CreateChildComponent<ButtonGroupComp>();
-	auto Obutton1 = UIButtons->CreateChildObj<BaseObject>();
+void SceneTitleScreen::Update(float deltaTime)
+{
+	Scene::Update(deltaTime);
 
-	auto button1 = Obutton1->CreateChildComponent<ButtonComp>("Button1");
-	Obutton1->CreateChildComponent<dae::TextureComp>("Level1.png");
-	buttonGroup->linkButton(button1)->setGroup(buttonGroup);
-	Obutton1->T()->SetPosition(-100, 0);
+	if(StartGameGroup->getActive()=="Start")
+	{
+		if(CanStartCheck())
+		{
+			StartGameGroup->DisableAll();
+			
+			
+		
+		}		
+		else
+			StartGameGroup->DisableAll();	
+	}
+}
 
-	auto Obutton2 = UIButtons->CreateChildObj<BaseObject>();
-	auto button2 = Obutton2->CreateChildComponent<ButtonComp>("button2");
-	Obutton2->CreateChildComponent<dae::TextureComp>("Level2.png");
-	buttonGroup->linkButton(button2)->setGroup(buttonGroup);
-	Obutton2->T()->SetPosition(100, 0);
+bool SceneTitleScreen::CanStartCheck()
+{
+	return (
+			!(LevelSelectGroup->getActive() == "")
+		 && !(Player1ControlGroup->getActive() == "")
+		 && !(Player2ControlGroup->getActive() == "")
+		 && !(Player2GameModeGroup->getActive() == "")
+		 );
 }

@@ -26,6 +26,14 @@ std::string ButtonGroupComp::getActive()
 	return "";
 }
 
+void ButtonGroupComp::DisableAll()
+{
+	for (auto button : buttonList)
+	{
+		button->setActive(false);
+	}
+}
+
 std::shared_ptr<ButtonComp> ButtonGroupComp::makeButton(std::string goal)
 {
 	auto button = m_pParentObject->CreateChildComponent<ButtonComp>(goal);
