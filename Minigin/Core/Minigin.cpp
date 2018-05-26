@@ -20,7 +20,7 @@
 #include "../ObjComp/Transform.h"
 #include "../ObjComp/Player1MovementComp.h"
 #include "../ObjComp/LevelObject.h"
-#include "../Scenes/SceneSinglePlayer.h"
+#include "../Scenes/SceneSinglePlayerMap2.h"
 #include "../Scenes/SceneTitleScreen.h"
 
 
@@ -60,7 +60,7 @@ void dae::Minigin::Initialize()
 void dae::Minigin::LoadGame() const
 {
 	SceneManager::GetInstance().AddScene(std::make_shared<SceneTitleScreen>());
-	//SceneManager::GetInstance().AddScene(std::make_shared<SceneSinglePlayer>());
+	//SceneManager::GetInstance().AddScene(std::make_shared<SceneSinglePlayerMap2>());
 }
 
 void dae::Minigin::Cleanup()

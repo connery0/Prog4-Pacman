@@ -48,7 +48,7 @@ protected:
 	std::shared_ptr<dae::Texture2D> t_Coin;
 	const std::string FileNamePowerup = "Powerup.png";
 	std::shared_ptr<dae::Texture2D> t_Powerup;
-	const std::string FileNameFruit = "Fruit.png"; //todo: Fruit for extra points (in level or as seperate actor?)
+	const std::string FileNameFruit = "Fruit.png"; 
 	std::shared_ptr<dae::Texture2D> t_Fruit;
 
 	std::vector<TileType>m_Tiles;

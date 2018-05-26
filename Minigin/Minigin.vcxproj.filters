@@ -84,9 +84,6 @@
     <ClInclude Include="ObjComp\LevelObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\SceneSinglePlayer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GlobalGameMaster\GlobalMaster.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -144,6 +141,12 @@
     <ClInclude Include="ObjComp\ButtonGroupObj.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Scenes\SceneSinglePlayerMap2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\SceneSinglePlayerMap1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -197,9 +200,6 @@
     <ClCompile Include="ObjComp\LevelObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\SceneSinglePlayer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Scenes\SceneTitleScreen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -222,6 +222,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ObjComp\ButtonComp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\SceneSinglePlayerMap2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\SceneSinglePlayerMap1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -6,6 +6,9 @@
 #include "../ObjComp/Player1MovementComp.h"
 #include "../ObjComp/ButtonComp.h"
 #include "../Core/Renderer.h"
+#include "../GlobalGameMaster/GlobalMaster.h"
+#include "SceneSinglePlayerMap2.h"
+#include "SceneSinglePlayerMap1.h"
 
 
 SceneTitleScreen::SceneTitleScreen(): Scene("TitleScene")
@@ -99,7 +102,7 @@ void SceneTitleScreen::Initialize()
 	TempObjectRef->T()->SetPosition(60, 200);
 	TempButtonComponentRef = TempObjectRef->CreateChildComponent<ButtonComp>("KeyboardP2");
 	Player2ControlGroup->linkButton(TempButtonComponentRef)->addGroup(Player2ControlGroup);
-	TempObjectRef->CreateChildComponent<dae::TextureComp>("Keyboard.png");
+	TempObjectRef->CreateChildComponent<dae::TextureComp>("Keyboard2.png");
 		//Controller
 	TempObjectRef = Player2Options->CreateChildObj<BaseObject>();
 	TempObjectRef->T()->SetPosition(60, 300);
@@ -142,9 +145,43 @@ void SceneTitleScreen::Update(float deltaTime)
 		if(CanStartCheck())
 		{
 			StartGameGroup->DisableAll();
+			auto& gm = GlobalMaster::GetInstance();
+			gm.resetVars();
+
 			
-			
-		
+			if(Player1ControlGroup->getActive()=="KeyboardP1")
+				gm.player1UsesKeyboard=true;
+			else
+				gm.player1UsesKeyboard=false;
+
+
+			if (Player2ControlGroup->getActive() == "KeyboardP2")
+				gm.player2UsesKeyboard = true;
+			else
+				gm.player2UsesKeyboard = false;
+
+
+			if (Player2GameModeGroup->getActive()=="NoP2")
+				gm.player2Active = false;
+			else if(Player2GameModeGroup->getActive()=="Pacman")
+			{
+				gm.player2Active = true;
+				gm.player2IsPacman=true;
+			}
+			else
+			{	gm.player2Active = true;
+				gm.player2IsPacman=false;
+			}
+
+			auto& sceneM = SceneManager::GetInstance();
+			if(LevelSelectGroup->getActive()=="Level 1")
+			{
+				sceneM.AddScene(std::make_shared<SceneSinglePlayerMap1>());
+				//add level 1
+			}else
+			{
+				sceneM.AddScene(std::make_shared<SceneSinglePlayerMap2>());
+			}
 		}		
 		else
 			StartGameGroup->DisableAll();	

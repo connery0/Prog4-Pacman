@@ -172,7 +172,6 @@ void dae::InputManager::Destroy()
 	m_ControllerInputActions.clear();
 	SafeDelete(m_pKeyboardState);
 	m_Initialized = false;
-
 }
 
 bool dae::InputManager::ProcessInput()

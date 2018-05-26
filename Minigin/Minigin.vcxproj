@@ -228,7 +228,8 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="ObjComp\TextureColliderComp.h" />
     <ClInclude Include="ObjComp\TextureComp.h" />
     <ClInclude Include="ObjComp\Transform.h" />
-    <ClInclude Include="Scenes\SceneSinglePlayer.h" />
+    <ClInclude Include="Scenes\SceneSinglePlayerMap1.h" />
+    <ClInclude Include="Scenes\SceneSinglePlayerMap2.h" />
     <ClInclude Include="Scenes\Scene.h" />
     <ClInclude Include="Scenes\SceneManager.h" />
     <ClInclude Include="Scenes\SceneTitleScreen.h" />
@@ -262,7 +263,8 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClCompile Include="ObjComp\Texture2D.cpp" />
     <ClCompile Include="ObjComp\TextureColliderComp.cpp" />
     <ClCompile Include="ObjComp\TextureComp.cpp" />
-    <ClCompile Include="Scenes\SceneSinglePlayer.cpp" />
+    <ClCompile Include="Scenes\SceneSinglePlayerMap1.cpp" />
+    <ClCompile Include="Scenes\SceneSinglePlayerMap2.cpp" />
     <ClCompile Include="Scenes\Scene.cpp" />
     <ClCompile Include="Scenes\SceneManager.cpp" />
     <ClCompile Include="Scenes\SceneTitleScreen.cpp" />

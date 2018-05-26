@@ -25,4 +25,5 @@ private:
 	const float maxPowerupTime=10.f;
 	float m_PowerupTime=0.f;
 	bool isDead=false;
+	bool m_RespawnPowerup=false;
 };

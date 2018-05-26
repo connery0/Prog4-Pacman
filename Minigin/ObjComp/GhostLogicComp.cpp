@@ -28,6 +28,9 @@ void GhostLogicComp::Update(float deltaTime)
 			isDead=false;		
 			m_pParentObject->GetComponent<dae::TextureColliderComp>()->isActive = true;
 			m_pParentObject->GetComponent<MazeRunner>()->m_DoesTileBlock[Floor] = true;
+			m_pParentObject->GetComponent<MazeRunner>()->m_DoesTileBlock[Coin] = true;
+			m_pParentObject->GetComponent<MazeRunner>()->m_DoesTileBlock[Fruit] = true;
+			m_pParentObject->GetComponent<MazeRunner>()->m_DoesTileBlock[Powerup] = true;
 			m_pParentObject->GetComponent<MazeRunner>()->m_DoesTileBlock[Wall] = true;
 			m_RespawnTimer=MaxRespawnTime;
 		}
@@ -40,6 +43,9 @@ void GhostLogicComp::Update(float deltaTime)
 		{
 			isGhosting=false;
 			m_pParentObject->GetComponent<MazeRunner>()->m_DoesTileBlock[Floor]=false;
+			m_pParentObject->GetComponent<MazeRunner>()->m_DoesTileBlock[Coin] = false;
+			m_pParentObject->GetComponent<MazeRunner>()->m_DoesTileBlock[Fruit] = false;
+			m_pParentObject->GetComponent<MazeRunner>()->m_DoesTileBlock[Powerup] = false;
 		}
 	}		
 }

@@ -11,6 +11,8 @@ public:
 	bool player1UsesKeyboard=true;
 	bool player2UsesKeyboard=true;
 
+	bool player2Active=false;
+	bool player2IsPacman=true;
 
 	//Map info - gets added when scene switches to a level
 	std::vector<std::pair<float, float>> m_Level_SpawnPoints;
@@ -22,7 +24,7 @@ public:
 	std::map<int, int>m_PlayerDeaths;
 	int m_PlayerMaxDeaths=3;
 
-	void resetPlayers()
+	void resetVars()
 	{
 		for (auto const& element : m_PlayerScore)
 		{
@@ -32,6 +34,8 @@ public:
 		{
 			m_PlayerDeaths[element.first] = 0;
 		}
+		m_Level_SpawnPoints.clear();
+		m_Level_PrisonTiles.clear();
 	};
 
 };

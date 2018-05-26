@@ -43,8 +43,6 @@ public:
 		return pointer;
 		};
 
-
-
 protected: 
 	bool isInitialized=false;	
 	std::string m_Name{};

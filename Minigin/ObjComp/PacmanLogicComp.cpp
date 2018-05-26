@@ -117,6 +117,11 @@ void PacmanLogicComp::Die()
 			m_pParentObject->T()->SetPosition(gm.m_Level_SpawnPoints[m_PlayerId]);
 		else
 			m_pParentObject->T()->SetPosition(gm.m_Level_SpawnPoints[0]);
+		
+		//Short invincibility
+		m_PowerupTime=3;
+		auto texture = m_pParentObject->GetComponent<dae::TextureColliderComp>(false);
+		texture->ChangeTexture("PacmanBuff.png");
 	}
 	else
 	{
