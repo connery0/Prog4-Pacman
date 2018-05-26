@@ -21,6 +21,7 @@ public:
 	/*template <typename S>
 	void Add<S>();*/
 
+	void Destroy();
 	std::shared_ptr<Scene> GetActiveScene();;
 
 	void Update(float deltaTime);

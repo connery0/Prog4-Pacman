@@ -45,6 +45,12 @@ void SceneManager::RemoveActiveScene(std::string nextScene)
 	m_Scenes.erase(std::remove(m_Scenes.begin(), m_Scenes.end(), toRemove), m_Scenes.end());
 }
 
+void SceneManager::Destroy()
+{
+	m_Scenes.clear();
+	ActiveScene=nullptr;
+}
+
 
 std::shared_ptr<Scene> SceneManager::GetActiveScene()
 {

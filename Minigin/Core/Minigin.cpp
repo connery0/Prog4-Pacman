@@ -60,13 +60,13 @@ void dae::Minigin::Initialize()
 void dae::Minigin::LoadGame() const
 {
 	SceneManager::GetInstance().AddScene(std::make_shared<SceneTitleScreen>());
-	//SceneManager::GetInstance().AddScene(std::make_shared<SceneSinglePlayerMap2>());
 }
 
 void dae::Minigin::Cleanup()
 {
 	InputManager::GetInstance().Destroy();
 	Renderer::GetInstance().Destroy();
+	SceneManager::GetInstance().Destroy();
 	SDL_DestroyWindow(window);
 	window = nullptr;
 	SDL_Quit();
