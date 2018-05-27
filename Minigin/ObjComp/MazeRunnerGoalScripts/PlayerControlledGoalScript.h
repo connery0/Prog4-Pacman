@@ -10,7 +10,7 @@ class PlayerControlledGoalScript: public goalScript
 	{
 		(void)TimePassed;//Doesn't matter for pacman
 		if (!m_Initialized)
-			Init(Parent);
+			Initialize(Parent);
 
 		std::pair<float,float>goal{0.f,0.f};
 		if (m_Input->isDown(MoveLeft))
@@ -24,7 +24,7 @@ class PlayerControlledGoalScript: public goalScript
 
 		return goal;
 	}
-	void PlayerControlledGoalScript::Init(BaseObject* Parent)
+	void PlayerControlledGoalScript::Initialize(BaseObject* Parent)
 	{
 		if (m_Input == nullptr)
 		{

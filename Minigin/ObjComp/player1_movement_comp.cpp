@@ -4,7 +4,7 @@
 #include "Transform.h"
 
 
-void player1_movement_comp::Init()
+void player1_movement_comp::Initialize()
 {
 	if (input == nullptr)
 	{
@@ -33,7 +33,7 @@ void player1_movement_comp::Init()
 void player1_movement_comp::Update(float deltaTime)
 {
 	if(!m_Initialized)
-		Init();
+		Initialize();
 
 	if(m_Initialized)//Do not try to update if initialize failed
 	{

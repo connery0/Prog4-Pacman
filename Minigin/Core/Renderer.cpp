@@ -7,7 +7,7 @@
 int dae::Renderer::WINDOW_WIDTH = 0;
 int dae::Renderer::WINDOW_HEIGHT = 0;
 
-void dae::Renderer::Init(SDL_Window * window)
+void dae::Renderer::Initialize(SDL_Window * window)
 {
 	mRenderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (mRenderer == nullptr) 

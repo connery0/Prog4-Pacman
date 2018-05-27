@@ -6,7 +6,7 @@
 class player1_movement_comp :public BaseComponent
 {
 
-	void Init();
+	void Initialize();
 	void Update(float deltaTime) override;
 
 	float speedMul = 100;

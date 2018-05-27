@@ -46,7 +46,7 @@ void dae::Minigin::Initialize()
 	{
 		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
 	}
-	Renderer::GetInstance().Init(window);
+	Renderer::GetInstance().Initialize(window);
 	Renderer::WINDOW_WIDTH = width;
 	Renderer::WINDOW_HEIGHT= height;
 }
@@ -77,7 +77,7 @@ void dae::Minigin::Run()
 	Initialize();
 
 	// tell the resource manager where he can find the game data
-	ResourceManager::GetInstance().Init("../Data/");
+	ResourceManager::GetInstance().Initialize("../Data/");
 
 	LoadGame();
 

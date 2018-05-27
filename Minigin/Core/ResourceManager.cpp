@@ -8,7 +8,7 @@
 #include "../ObjComp/Texture2D.h"
 #include "Font.h"
 
-void dae::ResourceManager::Init(std::string&& dataPath)
+void dae::ResourceManager::Initialize(std::string&& dataPath)
 {
 	mDataPath = std::move(dataPath);
 

@@ -11,7 +11,7 @@ class PlayerControlledGhostGoalScript: public GhostGoalScript
 		(void)TimePassed;
 
 		if(!m_Initialized)
-			Init(Parent);
+			Initialize(Parent);
 
 		std::pair<float, float>goal{ 0.f,0.f };
 		if (m_Input->isDown(MoveLeft))
@@ -25,7 +25,7 @@ class PlayerControlledGhostGoalScript: public GhostGoalScript
 
 		return goal;
 	}	
-	void Init(BaseObject* Parent)
+	void Initialize(BaseObject* Parent)
 	{
 		if (m_Input == nullptr)
 		{
