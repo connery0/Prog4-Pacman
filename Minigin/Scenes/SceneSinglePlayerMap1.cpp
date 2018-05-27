@@ -117,9 +117,9 @@ void SceneSinglePlayerMap1::Initialize()
 	}
 
 	//semi prefabs!
-	//addGhost(0, "Ghost.png",level);
-	//addGhost(1, "Ghost3.png", level);
-	//addGhost(3, "Ghost4.png", level);
+	addGhost(0, "Ghost.png",level);
+	addGhost(1, "Ghost3.png", level);
+	addGhost(3, "Ghost4.png", level);
 
 	auto fpsFont = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 20);
 

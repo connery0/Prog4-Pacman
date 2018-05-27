@@ -24,7 +24,7 @@ class PlayerControlledGoalScript: public goalScript
 
 		return goal;
 	}
-	void PlayerControlledGoalScript::Initialize(BaseObject* Parent)
+	void Initialize(BaseObject* Parent)
 	{
 		if (m_Input == nullptr)
 		{
